@@ -14,7 +14,6 @@ export default function Home() {
     <div className={styles.container}>
       <Head>
         <title>Test app</title>
-        <link rel="icon" href="/favicon.ico" />
       </Head>
 
       <main>
