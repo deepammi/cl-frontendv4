@@ -6,12 +6,15 @@ import axios from "axios";
 import CallButton from "./phone/CallButton.tsx";
 import HangUpButton from "./phone/HangUpButton.tsx";
 
-const ConnectCCP = ({ phoneNum }) => {
+const ConnectCCP = ({ phoneNum}) => {
   const ref = useRef();
   const [contactId, setContactId] = useState("");
   const [number, setNumber] = useState("1" + phoneNum.replace(/\D/g, ""));
 
   const [buttonState, setButtonState] = useState("enabled");
+  //for testing hard coded destination phone number
+  var testnumber = "19253329769"; // for testing only
+  var testing = true; //change this flag if not testing code
 
   useEffect(() => {
     try {
@@ -70,9 +73,13 @@ const ConnectCCP = ({ phoneNum }) => {
 
   const outBoundCall = async () => {
     setButtonState("callActived");
+    var destPhone = number;
+
+    if (testing) {destPhone = testnumber};
+
     try {
       const { data } = await axios.get(
-        `https://o2xpogtamg.execute-api.us-east-1.amazonaws.com/dev/GetConnectManager?destPhone=%2B${number}&queueARN=695227e1-08a7-41ff-b42e-1fd6f882ea55`
+        `https://o2xpogtamg.execute-api.us-east-1.amazonaws.com/dev/GetConnectManager?destPhone=%2B${testnumber}&queueARN=695227e1-08a7-41ff-b42e-1fd6f882ea55`
       );
       setContactId(JSON.parse(data.body).ContactId);
       setButtonState("hangUpActived");
