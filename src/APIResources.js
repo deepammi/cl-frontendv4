@@ -1,7 +1,8 @@
 import axios from 'axios';
 
 const apiResources = axios.create({
-    baseURL: 'http://localhost:4000',
+    baseURL: 'https://cl-backendv4-production.up.railway.app/',
+    //baseURL: 'http://localhost:4000/'
 });
 
 export default apiResources;
