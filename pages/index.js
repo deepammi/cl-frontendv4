@@ -49,11 +49,19 @@ export default function Home({ datatableUsers }) {
   }
 
   const fetchRecordings = async () => {
-    const res = await apiResources.post("/coldstart-entries", {});
+    try {
+      const res = await apiResources.post("fetchDataType", {
+        mode: "recording"
+      });
+    } catch (e) {
+      console.log(e);
+    }
   };
 
   const fetchCallLogs = async () => {
-    const res = await apiResources.post("/fetch-call-log", {});
+    const res = await apiResources.post("fetchDataType", {
+      mode: "transcript"
+    });
   };
 
   const openTranscript = (data) => {
@@ -80,10 +88,10 @@ export default function Home({ datatableUsers }) {
 
     <main>
       <div className={styles.grid}>
-        <Link className={styles.card} href="" onClick={async (e) => fetchRecordings()}><h3>Fill table &rarr;</h3></Link>
+        <Link className={styles.card} href="" onClick={(e) => fetchRecordings()}><h3>Fetch call recordings &rarr;</h3></Link>
       </div>
       <div className={styles.grid}>
-        <Link className={styles.card} href="" onClick={(e) => fetchCallLogs()}><h3>Fetch All Call Recordings &rarr;</h3></Link>
+        <Link className={styles.card} href="" onClick={(e) => fetchCallLogs()}><h3>Fetch call transcripts &rarr;</h3></Link>
       </div>
     </main>
     <div className="container-fluid mt-5 mb-5">
