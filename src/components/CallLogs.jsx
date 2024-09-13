@@ -19,7 +19,7 @@ export const getServerSideProps = async () => {
 
 export default function CallLogs({ datatableUsers = [], parentTran, modShow }) {
   const [showPortal, setShowPortal] = useState(false);
-  const [perPage, setPerPage] = useState(20);
+  const [perPage, setPerPage] = useState(50);
   const [size, setSize] = useState(perPage);
   const [current, setCurrent] = useState(1);
   const [refresh, setRefresh] = useState(false);
