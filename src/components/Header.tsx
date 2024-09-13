@@ -63,7 +63,16 @@ const Header = ({
                 <>
                   <li>
                     <Link
-                      href="/"
+                      href="/call-logs"
+                      className={theme === "dark" ? "text-dark" : "text-white"}
+                    >
+                      Call Logs Dashboard
+                    </Link>
+                  </li>
+
+                  <li>
+                    <Link
+                      href="/caller-dashboard"
                       className={theme === "dark" ? "text-dark" : "text-white"}
                     >
                       Caller Dashboard

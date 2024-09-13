@@ -1,13 +1,13 @@
+import { poppins } from "../components/ModalPortal";
 import { Html, Head, Main, NextScript } from 'next/document'
 
 export default function Document() {
   return (
-    <Html lang="en">
+    <Html lang="en" className={poppins.className}>
       <Head />
       <body>
         <Main />
         <NextScript />
-        <div id="modal-root"></div>
       </body>
     </Html>
   )

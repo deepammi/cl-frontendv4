@@ -1,11 +1,11 @@
+"use client";
+
 import Head from 'next/head';
 import Link from 'next/link';
-import styles from '../styles/Home.module.css';
-import modalStyles from '../styles/Modal.module.css';
-import apiResources from '../src/APIResources';
+import styles from '../../styles/Home.module.css';
+import apiResources from '../APIResources';
 import { useEffect, useState } from 'react';
 import Pagination from 'rc-pagination';
-import ClientPortal from '../components/ClientPortal/ClientPortal';
 
 export const getServerSideProps = async () => {
   // Load initial table
@@ -17,17 +17,13 @@ export const getServerSideProps = async () => {
   }
 };
 
-export default function Home({ datatableUsers }) {
+export default function CallLogs({ datatableUsers = [], parentTran, modShow }) {
   const [showPortal, setShowPortal] = useState(false);
-  const [perPage, setPerPage] = useState(10);
+  const [perPage, setPerPage] = useState(20);
   const [size, setSize] = useState(perPage);
   const [current, setCurrent] = useState(1);
-  const [currentTran, setCurrentTran] = useState([]);
+  const [refresh, setRefresh] = useState(false);
   const [currentEntries, setCurrentEntries] = useState(datatableUsers.length ? datatableUsers : []);
-
-  const handleModal = () => {
-    setShowPortal(!showPortal);
-  };
   
   const PerPageChange = (value) => {
       setSize(value);
@@ -49,27 +45,42 @@ export default function Home({ datatableUsers }) {
   }
 
   const fetchRecordings = async () => {
-    const res = await apiResources.post("/coldstart-entries", {});
+    try {
+      const res = await apiResources.post("fetchDataType", {
+        mode: "recording"
+      });
+    } catch (e) {
+      console.log(e);
+    }
+
+    setRefresh(true);
   };
 
   const fetchCallLogs = async () => {
-    const res = await apiResources.post("/fetch-call-log", {});
+    const res = await apiResources.post("fetchDataType", {
+      mode: "transcript"
+    });
+
+    setRefresh(true);
   };
 
   const openTranscript = (data) => {
     if (data.transcript) {
-      setCurrentTran(JSON.parse(data.transcript));
+      parentTran(JSON.parse(data.transcript));
+    } else {
+      parentTran([]);
     }
-    setShowPortal(true);
+    modShow(true);
   };
 
   useEffect(() => {
     const call = async () => {
         const newCallLogs = await apiResources.get(`/get-call-logs?page=${current}&limit=${perPage}`);
         setCurrentEntries(newCallLogs.data.retrievedRows);
+        setRefresh(false);
     };
     call();
-  }, [current, perPage]);
+  }, [current, perPage, refresh]);
 
   return (
     <>
@@ -80,10 +91,10 @@ export default function Home({ datatableUsers }) {
 
     <main>
       <div className={styles.grid}>
-        <Link className={styles.card} href="" onClick={async (e) => fetchRecordings()}><h3>Fill table &rarr;</h3></Link>
+        <Link className={styles.card} href="" onClick={(e) => fetchRecordings()}><h3>Fetch call recordings &rarr;</h3></Link>
       </div>
       <div className={styles.grid}>
-        <Link className={styles.card} href="" onClick={(e) => fetchCallLogs()}><h3>Fetch All Call Recordings &rarr;</h3></Link>
+        <Link className={styles.card} href="" onClick={(e) => fetchCallLogs()}><h3>Fetch call transcripts &rarr;</h3></Link>
       </div>
     </main>
     <div className="container-fluid mt-5 mb-5">
@@ -156,26 +167,6 @@ export default function Home({ datatableUsers }) {
         </div>
     </div>
     </div>
-    <ClientPortal
-        selector="loading-modal"
-        show={showPortal}
-      >
-        <div className={modalStyles.overflow}>
-          <div className={modalStyles.modal}>
-            <div className={modalStyles.header}>
-              <h4>Transcript</h4>
-              <button onClick={() => setShowPortal(false) && setCurrentTran([])}>Close transcript</button>
-            </div>
-            <div className={modalStyles.body}>
-              {
-                currentTran.length ? currentTran.map((dat, id) => {
-                  return (<p key={id}>Participant: {dat.participant} - {dat.content}</p>)
-                }) : <p>No transcript</p>
-              }
-            </div>
-          </div>
-        </div>
-      </ClientPortal>
 </>
   );
 }
