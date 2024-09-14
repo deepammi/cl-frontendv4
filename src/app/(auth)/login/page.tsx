@@ -4,7 +4,6 @@ import Login from "@/components/Login";
 const Page = () => {
   return (
     <>
-      <Header theme="dark" heroBkg={false} hideActionButton={true} />
       <Login />
     </>
   );
