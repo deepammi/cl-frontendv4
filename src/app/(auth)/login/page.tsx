@@ -1,8 +1,5 @@
 import AuthLayout from "@/components/AuthLayout/AuthLayout";
-import Header from "@/components/Header";
 import Login from "@/components/Login";
-
-// import AuthLayout from "../layout";
 
 const Page = () => {
   return (
@@ -18,6 +15,7 @@ const PageWithLayout: React.FC = () => (
     description={
       "To keep connected  with us please login with your personal info"
     }
+    backButton={false}
   >
     <Page />
   </AuthLayout>

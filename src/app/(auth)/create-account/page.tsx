@@ -1,13 +1,22 @@
+import AuthLayout from "@/components/AuthLayout/AuthLayout";
+import PasswordResetForm from "@/components/PasswordReset/PasswordResetForm";
 import CreateAccount from "@/components/CreateAccount";
-import Header from "@/components/Header";
+
 
 const Page = () => {
   return (
-    <>
-      <Header theme="dark" heroBkg={false} hideActionButton={true} />
-      <CreateAccount />
-    </>
+    <CreateAccount/>
   );
 };
 
-export default Page;
+const PageWithLayout: React.FC = () => (
+  <AuthLayout
+    title={"Hello Friends"}
+    description={"Enter your personal details and start journey with us"}
+    backButton={true}
+  >
+    <Page />
+  </AuthLayout>
+);
+
+export default PageWithLayout;

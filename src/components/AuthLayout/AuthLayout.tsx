@@ -1,14 +1,21 @@
 import { ReactNode } from "react";
-import companyLogoUrl from "../../../public/Image/CompanyLogo.svg";
+import companyLogoUrl from "@Image/CompanyLogo.svg";
 import Image from "next/image";
+import BackButton from "../BackButton";
 
 interface AuthLayoutProps {
   children: ReactNode;
   title: String;
   description: String;
+  backButton: boolean;
 }
 
-export default function AuthLayout({ children, title, description }: AuthLayoutProps) {
+export default function AuthLayout({
+  children,
+  title,
+  description,
+  backButton,
+}: AuthLayoutProps) {
   return (
     <html lang="en">
       <body>
@@ -30,6 +37,9 @@ export default function AuthLayout({ children, title, description }: AuthLayoutP
                 <div className="w-[80%] md:w-[70%] text-white font-medium">
                   {description}
                 </div>
+                {backButton ? (
+                  <BackButton/>
+                ) : null}
               </div>
             </div>
           </div>

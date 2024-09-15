@@ -1,17 +1,36 @@
 import Link from "next/link";
-import CreateAccountForm from "@/components/CreateAccountForm";
+import LoginForm from "@/components/LoginForm/LoginForm";
+import CreateAccountForm from "./CreateAccountForm";
 
 const CreateAccount = () => {
   return (
-    <div className="max-w-screen-sm mx-auto">
-      <p className="text-5xl font-semibold text-center">Create Account</p>
-      <div className="p-20 bg-[#faefef] mt-20 text-center">
-        <CreateAccountForm />
-        <p className="mt-8">
-          Already have an account? <Link href="/login" className="text-blue-500">Login</Link>
-        </p>
+    <>
+      <div className="h-screen flex flex-col items-center relative">
+        <button className="absolute top-8 right-8 border border-black rounded-full w-8 aspect-square flex items-center justify-center font-black shadow-md">
+          X
+        </button>
+        <div className="mt-[10%] text-[#868DAC] text-[1.5rem] font-extrabold">
+        Create An Account
+        </div>
+        <div className="mt-8 flex gap-4 text-[1.2rem]">
+          <Link href={"#"} className="border border-black rounded-full w-8 aspect-square flex items-center justify-center font-black text-[1.2rem]">
+            F
+          </Link>
+          <Link href={"#"} className="border border-black rounded-full w-8 aspect-square flex items-center justify-center font-black text-[1.2rem]">
+            G
+          </Link>
+          <Link href={"#"} className="border border-black rounded-full w-8 aspect-square flex items-center justify-center font-black text-[1rem]">
+            In
+          </Link>
+        </div>
+        <div className="mt-10">
+          or use your email account
+        </div>
+        <div className="mt-8 w-[50%]">
+          <CreateAccountForm/>
+        </div>
       </div>
-    </div>
+    </>
   );
 };
 

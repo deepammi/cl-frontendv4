@@ -25,7 +25,7 @@ const Login = () => {
         <div className="mt-10">
           or use your email account
         </div>
-        <div className="mt-8">
+        <div className="mt-8 w-[50%]">
           <LoginForm />
         </div>
         <div className="mt-10 text-[#0047FF]">

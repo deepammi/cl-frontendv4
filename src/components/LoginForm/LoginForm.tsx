@@ -3,10 +3,9 @@
 import axios from "axios";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
-import "./LoginForm.style.css";
 import Image from "next/image";
-import EmailIcon from "../../../public/Image/EmailIcon.svg";
-import PasswordIcon from "../../../public/Image/PasswordIcon.svg";
+import EmailIcon from "@Image/EmailIcon.svg";
+import PasswordIcon from "@Image/PasswordIcon.svg";
 
 const LoginForm = () => {
   const router = useRouter();
@@ -46,19 +45,11 @@ const LoginForm = () => {
   return (
     <form
       onSubmit={handler}
-      style={{
-        marginTop: "1.25rem",
-        display: "flex",
-        flexDirection: "column",
-        gap: "2rem",
-        justifyContent: "center",
-        alignItems: "center",
-        width: "25rem",
-      }}
+      className="mt-5 flex flex-col gap-8 justify-center items-center w-full"
     >
-      <div className="input-container">
+      <div className="relative w-full h-8">
         <Image
-          className="icon"
+          className="absolute left-2 top-[75%] transform -translate-y-1/2 text-lg text-gray-500"
           src={EmailIcon}
           alt="logo"
           width={20}
@@ -67,14 +58,14 @@ const LoginForm = () => {
         <input
           type="email"
           placeholder="Email"
-          className="input-field"
+          className="w-full pl-12 pr-4 py-3 rounded-lg bg-gray-100 shadow-md text-base text-gray-800 outline-none focus:ring-2 focus:ring-blue-500 transition-shadow duration-300 ease-in-out"
           onChange={(e) => setEmail(e.target.value)}
         />
       </div>
 
-      <div className="input-container">
+      <div className="relative w-full h-8">
         <Image
-          className="icon"
+          className="absolute left-2 top-[65%] transform -translate-y-1/2 text-lg text-gray-500"
           src={PasswordIcon}
           alt="logo"
           width={20}
@@ -83,30 +74,20 @@ const LoginForm = () => {
         <input
           type="password"
           placeholder="Password"
-          className="input-field"
+          className="w-full pl-12 pr-4 py-3 rounded-lg bg-gray-100 shadow-md text-base text-gray-800 outline-none focus:ring-2 focus:ring-blue-500 transition-shadow duration-300 ease-in-out"
           onChange={(e) => setPassword(e.target.value)}
         />
       </div>
-      <div
-        style={{ width: "100%", display: "flex", justifyContent: "flex-end" }}
-      >
-        <a href="#" style={{ color: "#0070f3", fontSize: "0.875rem" }}>
+
+      <div className="w-full flex justify-end">
+        <a href="/password-reset" className="text-blue-500 text-sm">
           Forgot Password?
         </a>
       </div>
+
       <button
         type="submit"
-        style={{
-          backgroundColor: "#4F73FF",
-          padding: "0.75rem 2rem",
-          borderRadius: "9999px",
-          color: "#fff",
-          fontWeight: "bold",
-          width: "fit-content",
-          border: "none",
-          boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",
-          cursor: "pointer",
-        }}
+        className="mt-[15%] border border-[#5B7AFC] bg-[#5B7AFC] text-white py-[1.5%] px-[10%] rounded-full hidden md:block"
       >
         Sign in
       </button>
