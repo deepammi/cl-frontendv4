@@ -4,9 +4,11 @@ import Image from "next/image";
 
 interface AuthLayoutProps {
   children: ReactNode;
+  title: String;
+  description: String;
 }
 
-export default function AuthLayout({ children }: AuthLayoutProps) {
+export default function AuthLayout({ children, title, description }: AuthLayoutProps) {
   return (
     <html lang="en">
       <body>
@@ -22,11 +24,11 @@ export default function AuthLayout({ children }: AuthLayoutProps) {
             </div>
             <div className="mt-[30%] md:mt-[40%] ml-[10%] md:ml-[20%]">
               <div>
-                <div className="text-white text-[2rem] md:text-[2.5rem] font-medium">
-                  Welcome Back
+                <div className="text-white text-[2rem] md:text-[2.5rem] font-bold">
+                  {title}
                 </div>
                 <div className="w-[80%] md:w-[70%] text-white font-medium">
-                  To keep connected with us please login with your personal info
+                  {description}
                 </div>
               </div>
             </div>

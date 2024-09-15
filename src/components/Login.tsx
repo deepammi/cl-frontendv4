@@ -1,18 +1,38 @@
 import Link from "next/link";
-import LoginForm from "@/components/LoginForm";
+import LoginForm from "@/components/LoginForm/LoginForm";
 
 const Login = () => {
   return (
-    <div className="max-w-screen-sm mx-auto">
-      <p className="text-5xl font-semibold text-center">Login</p>
-      <div className="p-20 bg-[#faefef] mt-20 text-center">
-        <LoginForm />
-        <p className="mt-8">
-          Do not have account?{" "}
-          <Link href="/create-account" className="text-blue-500">Create Account</Link>
-        </p>
+    <>
+      <div className="h-screen flex flex-col items-center relative">
+        <button className="absolute top-8 right-8 border border-black rounded-full w-8 aspect-square flex items-center justify-center font-black shadow-md">
+          X
+        </button>
+        <div className="mt-[10%] text-[#868DAC] text-[1.5rem] font-extrabold">
+          Sign in to Turigma.ai
+        </div>
+        <div className="mt-8 flex gap-4 text-[1.2rem]">
+          <Link href={"#"} className="border border-black rounded-full w-8 aspect-square flex items-center justify-center font-black text-[1.2rem]">
+            F
+          </Link>
+          <Link href={"#"} className="border border-black rounded-full w-8 aspect-square flex items-center justify-center font-black text-[1.2rem]">
+            G
+          </Link>
+          <Link href={"#"} className="border border-black rounded-full w-8 aspect-square flex items-center justify-center font-black text-[1rem]">
+            In
+          </Link>
+        </div>
+        <div className="mt-10">
+          or use your email account
+        </div>
+        <div className="mt-8">
+          <LoginForm />
+        </div>
+        <div className="mt-10 text-[#0047FF]">
+          <Link href="/create-account">New register here !</Link>
+        </div>
       </div>
-    </div>
+    </>
   );
 };
 
