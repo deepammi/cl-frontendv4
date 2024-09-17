@@ -2,12 +2,13 @@ import Footer from "@/components/Footer";
 import Header from "@/components/Header";
 import Image from "next/image";
 import Link from "next/link";
+import Navbar from "../components/Navbar/index"
 
 export default function Home() {
   return (
     <main>
-      <Header theme="light" heroBkg={true} hideActionButton={false} logoImageVisible={false}/>
-
+      {/* <Header theme="light" heroBkg={true} hideActionButton={false} logoImageVisible={false}/> */}
+      <Navbar/>
       <section>
         <div className="relative mx-auto">
           <div className="py-5">
