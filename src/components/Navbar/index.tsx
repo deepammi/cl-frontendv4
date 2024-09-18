@@ -31,13 +31,11 @@ const Navbar = () => {
   };
 
   return (
-    <nav className="">
-      <Layout>
-        <Layout.Header style={{ backgroundColor: "white" }}>
+        <Layout.Header className="absolute top-5" style={{ backgroundColor: "transparent", width:"100%" }}>
           <Flex justify={"space-between"} align={"center"}>
             <Flex gap={4} align="center">
               <Image src={logoIconUrl} alt="logo" width={60} height={60} />
-              <Title level={4} style={{ color: "#767BDE", fontWeight: "700" }}>
+              <Title level={3} style={{ color: "#767BDE", fontWeight: "800" }}>
                 Turigma.ai
               </Title>
             </Flex>
@@ -51,6 +49,7 @@ const Navbar = () => {
                   style={{
                     borderBottom: "none",
                     minWidth: "90%",
+                    backgroundColor:"transparent",
                   }}
                 />
                 <Button
@@ -95,8 +94,6 @@ const Navbar = () => {
             </Drawer>
           </Flex>
         </Layout.Header>
-      </Layout>
-    </nav>
   );
 };
 

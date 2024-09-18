@@ -1,56 +1,37 @@
 import Footer from "@/components/Footer";
-import Header from "@/components/Header";
 import Image from "next/image";
-import Link from "next/link";
-import Navbar from "../components/Navbar/index"
+import Navbar from "../components/Navbar/index";
+import { Button, Layout } from "antd";
+import { Content } from "antd/es/layout/layout";
+import playIconUrl from "@Image/playIcon.svg";
 
 export default function Home() {
   return (
-    <main>
-      {/* <Header theme="light" heroBkg={true} hideActionButton={false} logoImageVisible={false}/> */}
-      <Navbar/>
-      <section>
-        <div className="relative mx-auto">
-          <div className="py-5">
-            <div className="flex flex-wrap justify-between items-center mt-20">
-              <div className="w-full lg:w-5/12">
-                <div className="flex flex-col justify-center items-center lg:items-start text-center lg:text-left px-20">
-                  <p className="font-nunito text-[50px] lg:text-[75px] font-extrabold mb-5">
-                    Automate Your Presales
-                  </p>
-                  <p className="font-extralight text-2xl leading-relaxed text-black lg:text-[#797979] ">
-                    World’s 1st PreSales Automation Platform for B2B Enterprises{" "}
-                  </p>
-                  <button className="bg-[#5236FF] py-4 px-6 text-white rounded-full text-sm mt-5">
-                    Get Started
-                  </button>
-                </div>
-              </div>
-              <div className="w-full lg:w-6/12 ">
-                <div className="flex justify-end">
-                  <Image
-                    src="/hero-image.png"
-                    alt="hero"
-                    width={1100}
-                    height={400}
-                  />
-                </div>
-              </div>
+    <Layout>
+      <Content>
+        <div className="h-[100vh] lg:h-[110vh] relative bg-cover items-center justify-center text-white bg-[url('/Image/backGroundImg_mobile_screen.svg')] md:bg-[url('/Image/backGroundImg_medium_screen.svg')] lg:bg-[url('/Image/TopBackGroundImg.svg')]">
+          <Navbar />
+          <div className="pt-[70%] md:pt-[15%] pl-[10%] w-[60%] md:w-[40%] text-black">
+            <div className="text-[2rem] md:text-[3.5rem] font-extrabold text-left md:text-center text-[#030C1B] w-[80%]">
+              Automate Your PreSales
+            </div>
+            <div className="text-[0.6rem] md:text-[1rem] leading-normal font-normal mt-[5%] text-[#364050]">
+              TBI provides AI software that automates the manual task of making
+              sales calls to business customers. World’s 1st PreSales Automation
+              Platform for B2B Enterprises
+            </div>
+            <div className="flex gap-[3%] mt-[8%]">
+              <Button
+                icon={<Image src={playIconUrl} alt="playIcon" />}
+                className="bg-[#F1F6FF] border border-[#e3ecfc]"
+              >
+                Watch Video
+              </Button>
+              <Button type="primary">Try the demo</Button>
             </div>
           </div>
         </div>
-
-        <div className="max-w-screen-md mx-auto py-5 px-20 clear-both">
-          <div className="flex flex-col items-center">
-            <button className="bg-[#EFECFF] text-[#5236FF] p-4 rounded-full text-sm">
-              Go To The Top
-            </button>
-            <h2 className="font-nunito text-[30px] lg:text-[50px] font-extrabold text-center mt-10 leading-11">
-              Disrupting PreSales with Generative AI Magic
-            </h2>
-          </div>
-        </div>
-      </section>
+      </Content>
 
       <section>
         <div className="max-w-screen-xl mx-auto py-5 px-20 clear-both">
@@ -512,6 +493,6 @@ export default function Home() {
       </section>
 
       <Footer />
-    </main>
+    </Layout>
   );
 }
