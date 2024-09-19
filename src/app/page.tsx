@@ -1,15 +1,19 @@
 import Footer from "@/components/Footer";
 import Image from "next/image";
 import Navbar from "../components/Navbar/index";
-import { Button, Layout } from "antd";
+import { Button, Layout, Row } from "antd";
 import { Content } from "antd/es/layout/layout";
 import playIconUrl from "@Image/playIcon.svg";
+import AutomateCallScriptIconUrl from "@Image/AutomatedCallScriptImage.svg";
+import HighConversionIonUrl from "@Image/highConversionIcon.svg";
+import AIManagementIconUrl from "@Image/AIManagementIcon.svg";
+import FeatureCard from "../components/FeatureCard";
 
 export default function Home() {
   return (
     <Layout>
-      <Content>
-        <div className="h-[100vh] lg:h-[110vh] relative bg-cover items-center justify-center text-white bg-[url('/Image/backGroundImg_mobile_screen.svg')] md:bg-[url('/Image/backGroundImg_medium_screen.svg')] lg:bg-[url('/Image/TopBackGroundImg.svg')]">
+      <Content className="bg-[#fff]">
+        <div className="h-[100vh] relative bg-cover items-center justify-center text-white bg-[url('/Image/backGroundImg_mobile_screen.svg')] md:bg-[url('/Image/backGroundImg_medium_screen.svg')] lg:bg-[url('/Image/TopBackGroundImg.svg')]">
           <Navbar />
           <div className="pt-[70%] md:pt-[15%] pl-[10%] w-[60%] md:w-[40%] text-black">
             <div className="text-[2rem] md:text-[3.5rem] font-extrabold text-left md:text-center text-[#030C1B] w-[80%]">
@@ -22,92 +26,54 @@ export default function Home() {
             </div>
             <div className="flex gap-[3%] mt-[8%]">
               <Button
+                size="large"
                 icon={<Image src={playIconUrl} alt="playIcon" />}
                 className="bg-[#F1F6FF] border border-[#e3ecfc]"
               >
                 Watch Video
               </Button>
-              <Button type="primary">Try the demo</Button>
+              <Button size="large" type="primary">Try the demo</Button>
             </div>
           </div>
+        </div>
+        <div>
+          <div
+            className="px-4 lg:px-20 py-10 flex flex-col"
+            style={{ alignItems: "center" }}
+          >
+            <h1 className="text-center text-3xl text-[#4B5264] font-bold mb-8">
+              Using Magic of Generative AI to Upend Pre-Sales
+            </h1>
+            <Row gutter={[30, 30]} justify="center">
+              <FeatureCard
+                ImgUrl={AutomateCallScriptIconUrl}
+                Title={"Automated Call-scripts"}
+                Description={
+                  "AI-generated Call Scripts, hyper-customized for each target, including your top sales propositions. Call-scripts are built using real-time Sales Signal alerts and buying propensity insights."
+                }
+              />
+              {/* Second Card */}
+              <FeatureCard
+                ImgUrl={HighConversionIonUrl}
+                Title="Higher Conversion At Blazing Speed"
+                Description="Improve sales cycle by 90% lower campaign time. Improve
+                    presales conversions by 50% or more. Higher success creates
+                    empowered & happy callers."
+              />
+              <FeatureCard
+                ImgUrl={AIManagementIconUrl}
+                Title="AI Management Insights"
+                Description="Managers get detailed insights of messaging effectiveness,
+                    employee performance and real-time campaign performance. No
+                    more waiting weeks or months to see campaign outcomes."
+              />
+            </Row>
+          </div>
+        </div>
+        <div>
+
         </div>
       </Content>
-
-      <section>
-        <div className="max-w-screen-xl mx-auto py-5 px-20 clear-both">
-          <div className="flex flex-wrap lg:flex-nowrap justify-center items-item gap-20">
-            <div className="flex flex-col w-full lg:w-4/12">
-              <Image
-                src="/how-it-works-1.png"
-                alt=""
-                width={800}
-                height={300}
-                className="mx-auto"
-              />
-              <p className="text-center text-[#797979]">
-                Hyper customized Caller Scripts with your top sales propositions
-                customized for each prospect in your call list. Real-time Sales
-                Signal alerts based on prospect activities.
-              </p>
-              <a
-                href="#"
-                className="underline hover:text-[#5236FF] text-center mt-5 font-semibold"
-              >
-                Learn more
-              </a>
-            </div>
-
-            <div className="flex flex-col w-full lg:w-4/12">
-              <Image
-                src="/how-it-works-2.png"
-                alt=""
-                width={800}
-                height={300}
-                className="mx-auto"
-              />
-              <p className="text-center text-[#797979]">
-                Real-time feedback to Callers to improve micro-aspects of each
-                call. Aggregated feedback to Managers to pinpoint improvements &
-                support.
-              </p>
-              <a
-                href="#"
-                className="underline hover:text-[#5236FF] text-center mt-5 font-semibold"
-              >
-                Learn more
-              </a>
-            </div>
-
-            <div className="flex flex-col w-full lg:w-4/12">
-              <Image
-                src="/how-it-works-3.png"
-                alt=""
-                width={800}
-                height={300}
-                className="mx-auto"
-              />
-              <p className="text-center text-[#797979]">
-                90% lower campaign time 30% more sales conversion Empowered &
-                happy callers
-              </p>
-              <a
-                href="#"
-                className="underline hover:text-[#5236FF] text-center mt-5 font-semibold"
-              >
-                Learn more
-              </a>
-            </div>
-          </div>
-        </div>
-
-        <div className="max-w-screen-xl mx-auto py-5 px-10 clear-both">
-          <div className="flex flex-col items-center">
-            <button className="bg-[#EFECFF] text-[#5236FF] p-4 rounded-full text-sm">
-              Go To The Top
-            </button>
-          </div>
-        </div>
-      </section>
 
       <section>
         <div className="max-w-screen-xl mx-auto py-5 px-20 clear-both bg-[#F1F1F1]">
