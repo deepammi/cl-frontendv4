@@ -1,3 +1,5 @@
+"use client";
+
 import CallerDashboard from "@/components/CallerDashboard";
 import Footer from "@/components/Footer";
 import Header from "@/components/Header";
@@ -25,7 +27,7 @@ export async function getStaticProps() {
   }
 };
 
-const Page = async ({ records }: any) => {
+const Page = ({ records }: any) => {
   return (
     <>
       <Header theme="dark" hideActionButton={true} isUserLogged={true} />
