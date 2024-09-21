@@ -5,6 +5,7 @@ import { useEffect, useState } from 'react';
 import CallLogs from '../../components/CallLogs';
 import ModalPortal from '../../components/ModalPortal';
 import modalStyles from '../../../styles/Modal.module.css';
+import '../../app/globals.css'
 
 const Page = () => {
     const [tran, setTran]: [any, any] = useState([]);

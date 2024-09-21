@@ -1,7 +1,7 @@
 import CallerDashboard from "@/components/CallerDashboard";
 import Footer from "@/components/Footer";
 import Header from "@/components/Header";
-import axios from "axios";
+import '../../app/globals.css';
 
 const getRecords = async () => {
   try {
@@ -16,9 +16,16 @@ const getRecords = async () => {
   }
 };
 
-const Page = async () => {
+export async function getStaticProps() {
   const records = await getRecords();
+  return {
+    props: {
+      records,
+    }
+  }
+};
 
+const Page = async ({ records }: any) => {
   return (
     <>
       <Header theme="dark" hideActionButton={true} isUserLogged={true} />

@@ -1,7 +1,6 @@
 // Copyright Amazon.com, Incon. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: MIT-0
 import React, { memo, useRef, useState, useEffect } from "react";
-import "amazon-connect-streams";
 import axios from "axios";
 import CallButton from "./phone/CallButton.tsx";
 import HangUpButton from "./phone/HangUpButton.tsx";
@@ -18,7 +17,10 @@ const ConnectCCP = ({ phoneNum}) => {
   var testing = true; //change this flag if not testing code
 
   useEffect(() => {
+    const update = async () => {
+    if (typeof navigator !== 'undefined') {
     try {
+      (await import("amazon-connect-streams"));
       connect.core.initCCP(ref.current, {
         ccpUrl: "https://tbi-test-connect.my.connect.aws/connect/ccp-v2",
         region: "us-east-1",
@@ -70,6 +72,9 @@ const ConnectCCP = ({ phoneNum}) => {
     } catch (error) {
       console.error("Error initializing CCP:", error);
     }
+  }
+  }
+  update();
   }, [ref]);
 
   const outBoundCall = async () => {
