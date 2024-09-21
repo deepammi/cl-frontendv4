@@ -8,7 +8,7 @@ import '../../app/globals.css';
 const getRecords = async () => {
   try {
     const response = await fetch(
-      `${process.env.NEXT_PUBLIC_API_BASEURL}/records`,
+      "https://app-endcl.azurewebsites.net/records",
       { cache: "no-store" }
     );
     let result = await response.json();
