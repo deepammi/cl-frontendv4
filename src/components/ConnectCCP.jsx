@@ -12,8 +12,8 @@ const ConnectCCP = ({ phoneNum}) => {
 
   const [buttonState, setButtonState] = useState("enabled");
   //for testing hard coded destination phone number
-  //var testnumber = "19253329769"; // for testing only
-  var testnumber = "523222150066";
+  var testnumber = "19253329769"; // for testing only
+  //var testnumber = "523222150066";
   var testing = true; //change this flag if not testing code
 
   useEffect(() => {
