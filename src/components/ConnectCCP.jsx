@@ -1,24 +1,31 @@
 // Copyright Amazon.com, Incon. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: MIT-0
 import React, { memo, useRef, useState, useEffect } from "react";
-import "amazon-connect-streams";
 import axios from "axios";
-import CallButton from "./phone/CallButton.tsx";
-import HangUpButton from "./phone/HangUpButton.tsx";
+import CallButton from "./phone/CallButton";
+import HangUpButton from "./phone/HangUpButton";
+import CallInputs from "./CallInputs";
 
 const ConnectCCP = ({ phoneNum}) => {
   const ref = useRef();
   const [contactId, setContactId] = useState("");
-  const [number, setNumber] = useState("1" + phoneNum.replace(/\D/g, ""));
+  const [sourcePhone, setSourcePhone] = useState("1" + phoneNum.replace(/\D/g, ""));
+  const [destPhone, setDestPhone] = useState("");
+  const [contactFlowId, setContactFlowId] = useState("b7f26976-0dc7-4391-b43d-bf6ea1b19e91");
+  const [instanceId, setConnectInstanceId] = useState("695227e1-08a7-41ff-b42e-1fd6f882ea55");
+  const [queueARN, setQueueArn] = useState("a81629fc-0c52-4589-ace8-34c2e2818e39");
 
   const [buttonState, setButtonState] = useState("enabled");
   //for testing hard coded destination phone number
-  //var testnumber = "19253329769"; // for testing only
-  var testnumber = "523222150066";
-  var testing = true; //change this flag if not testing code
+  var testnumber = "19253329769"; // for testing only
+  //var testnumber = "523222150066";
+  var testing = false; //change this flag if not testing code
 
   useEffect(() => {
+    const update = async () => {
+    if (typeof navigator !== 'undefined') {
     try {
+      (await import("amazon-connect-streams"));
       connect.core.initCCP(ref.current, {
         ccpUrl: "https://tbi-test-connect.my.connect.aws/connect/ccp-v2",
         region: "us-east-1",
@@ -43,7 +50,7 @@ const ConnectCCP = ({ phoneNum}) => {
           enableAudioDeviceSettings: true, // optional, defaults to 'false'
           enablePhoneTypeSettings: true, // optional, defaults to 'true'
         },
-        contactFlowId: "b7f26976-0dc7-4391-b43d-bf6ea1b19e91",
+        contactFlowId,
         ccpAckTimeout: 5000, //optional, defaults to 3000 (ms)
         ccpSynTimeout: 3000, //optional, defaults to 1000 (ms)
         ccpLoadTimeout: 10000, //optional, defaults to 5000 (ms)
@@ -70,17 +77,18 @@ const ConnectCCP = ({ phoneNum}) => {
     } catch (error) {
       console.error("Error initializing CCP:", error);
     }
+  }
+  }
+  update();
   }, [ref]);
 
   const outBoundCall = async () => {
     setButtonState("callActived");
-    var destPhone = number;
-
-    if (testing) {destPhone = testnumber};
+    if (testing) {setDestPhone(testnumber)};
 
     try {
       const { data } = await axios.get(
-        `https://o2xpogtamg.execute-api.us-east-1.amazonaws.com/dev/GetConnectManager?destPhone=%2B${testnumber}&queueARN=695227e1-08a7-41ff-b42e-1fd6f882ea55`
+        `https://o2xpogtamg.execute-api.us-east-1.amazonaws.com/dev/GetConnectManager?destPhone=%2B${destPhone}&queueARN=${queueARN}&sourcePhone=%2B${sourcePhone}&instanceId=${instanceId}&contactFlowId=${contactFlowId}`
       );
       setContactId(JSON.parse(data.body).ContactId);
       setButtonState("hangUpActived");
@@ -108,6 +116,17 @@ const ConnectCCP = ({ phoneNum}) => {
       <div className="flex justify-between mb-5">
         <CallButton status={buttonState} acceptHandler={outBoundCall} />
         <HangUpButton status={buttonState} disconnectHandler={disconnectCall} />
+        <CallInputs
+          source={sourcePhone}
+          setSource={setSourcePhone}
+          dest={destPhone}
+          setDest={setDestPhone}
+          flowId={contactFlowId}
+          setFlowId={setContactFlowId}
+          instance={instanceId}
+          setInstance={setConnectInstanceId}
+          queueArn={queueARN}
+          setQueue={setQueueArn} />
       </div>
     </>
   );

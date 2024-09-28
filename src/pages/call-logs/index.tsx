@@ -5,6 +5,9 @@ import { useEffect, useState } from 'react';
 import CallLogs from '../../components/CallLogs';
 import ModalPortal from '../../components/ModalPortal';
 import modalStyles from '../../../styles/Modal.module.css';
+import "react-responsive-modal/styles.css";
+import Modal from "react-responsive-modal";
+import '../../app/globals.css'
 
 const Page = () => {
     const [tran, setTran]: [any, any] = useState([]);
@@ -14,15 +17,12 @@ const Page = () => {
     <>
       <Header theme="dark" hideActionButton={true} isUserLogged={true} />
       <CallLogs parentTran={setTran} modShow={setModalShow} />
-      <ModalPortal
-        selector="loading-modal"
-        show={modalShow}
-      >
-        <div className={modalStyles.overflow}>
-          <div className={modalStyles.modal}>
-            <div className={modalStyles.header}>
+      {(
+      <Modal open={modalShow} onClose={() => setModalShow(false)}>
+      <div>
+          <div>
+            <div>
               <h4>Transcript</h4>
-              <button onClick={() => setModalShow(false)}>Close transcript</button>
             </div>
             <div className={modalStyles.body}>
             {
@@ -33,8 +33,8 @@ const Page = () => {
             </div>
           </div>
         </div>
-      </ModalPortal>
-      <div id="loading-modal"></div>
+        </Modal>
+      )}
     </>
   );
 };
