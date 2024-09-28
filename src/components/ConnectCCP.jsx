@@ -2,19 +2,22 @@
 // SPDX-License-Identifier: MIT-0
 import React, { memo, useRef, useState, useEffect } from "react";
 import axios from "axios";
-import CallButton from "./phone/CallButton.tsx";
-import HangUpButton from "./phone/HangUpButton.tsx";
+import CallButton from "./phone/CallButton";
+import HangUpButton from "./phone/HangUpButton";
+import CallInputs from "./CallInputs";
 
 const ConnectCCP = ({ phoneNum}) => {
   const ref = useRef();
   const [contactId, setContactId] = useState("");
   const [number, setNumber] = useState("1" + phoneNum.replace(/\D/g, ""));
+  const [contactFlowId, setContactFlowId] = useState("b7f26976-0dc7-4391-b43d-bf6ea1b19e91");
+  const [queueARN, setQueueArn] = useState("695227e1-08a7-41ff-b42e-1fd6f882ea55");
 
   const [buttonState, setButtonState] = useState("enabled");
   //for testing hard coded destination phone number
   var testnumber = "19253329769"; // for testing only
   //var testnumber = "523222150066";
-  var testing = true; //change this flag if not testing code
+  var testing = false; //change this flag if not testing code
 
   useEffect(() => {
     const update = async () => {
@@ -45,7 +48,7 @@ const ConnectCCP = ({ phoneNum}) => {
           enableAudioDeviceSettings: true, // optional, defaults to 'false'
           enablePhoneTypeSettings: true, // optional, defaults to 'true'
         },
-        contactFlowId: "b7f26976-0dc7-4391-b43d-bf6ea1b19e91",
+        contactFlowId,
         ccpAckTimeout: 5000, //optional, defaults to 3000 (ms)
         ccpSynTimeout: 3000, //optional, defaults to 1000 (ms)
         ccpLoadTimeout: 10000, //optional, defaults to 5000 (ms)
@@ -79,13 +82,13 @@ const ConnectCCP = ({ phoneNum}) => {
 
   const outBoundCall = async () => {
     setButtonState("callActived");
-    var destPhone = number;
+    let destPhone = number;
 
     if (testing) {destPhone = testnumber};
 
     try {
       const { data } = await axios.get(
-        `https://o2xpogtamg.execute-api.us-east-1.amazonaws.com/dev/GetConnectManager?destPhone=%2B${testnumber}&queueARN=695227e1-08a7-41ff-b42e-1fd6f882ea55`
+        `https://o2xpogtamg.execute-api.us-east-1.amazonaws.com/dev/GetConnectManager?destPhone=%2B${destPhone}&queueARN=${queueARN}`
       );
       setContactId(JSON.parse(data.body).ContactId);
       setButtonState("hangUpActived");
@@ -113,6 +116,7 @@ const ConnectCCP = ({ phoneNum}) => {
       <div className="flex justify-between mb-5">
         <CallButton status={buttonState} acceptHandler={outBoundCall} />
         <HangUpButton status={buttonState} disconnectHandler={disconnectCall} />
+        <CallInputs phoneNo={number} setNumber={setNumber} flowId={contactFlowId} setFlowId={setContactFlowId} queueArn={queueARN} setQueue={setQueueArn} />
       </div>
     </>
   );
