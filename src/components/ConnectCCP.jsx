@@ -9,8 +9,10 @@ import CallInputs from "./CallInputs";
 const ConnectCCP = ({ phoneNum}) => {
   const ref = useRef();
   const [contactId, setContactId] = useState("");
-  const [number, setNumber] = useState("1" + phoneNum.replace(/\D/g, ""));
+  const [sourcePhone, setSourcePhone] = useState("1" + phoneNum.replace(/\D/g, ""));
+  const [destPhone, setDestPhone] = useState("");
   const [contactFlowId, setContactFlowId] = useState("b7f26976-0dc7-4391-b43d-bf6ea1b19e91");
+  const [instanceId, setConnectInstanceId] = useState("695227e1-08a7-41ff-b42e-1fd6f882ea55");
   const [queueARN, setQueueArn] = useState("695227e1-08a7-41ff-b42e-1fd6f882ea55");
 
   const [buttonState, setButtonState] = useState("enabled");
@@ -82,13 +84,11 @@ const ConnectCCP = ({ phoneNum}) => {
 
   const outBoundCall = async () => {
     setButtonState("callActived");
-    let destPhone = number;
-
-    if (testing) {destPhone = testnumber};
+    if (testing) {setDestPhone(testnumber)};
 
     try {
       const { data } = await axios.get(
-        `https://o2xpogtamg.execute-api.us-east-1.amazonaws.com/dev/GetConnectManager?destPhone=%2B${destPhone}&queueARN=${queueARN}`
+        `https://o2xpogtamg.execute-api.us-east-1.amazonaws.com/dev/GetConnectManager?destPhone=%2B${destPhone}&queueARN=${queueARN}&sourcePhone=${sourcePhone}&instanceId=${instanceId}&contactFlowId=${contactFlowId}`
       );
       setContactId(JSON.parse(data.body).ContactId);
       setButtonState("hangUpActived");
@@ -116,7 +116,17 @@ const ConnectCCP = ({ phoneNum}) => {
       <div className="flex justify-between mb-5">
         <CallButton status={buttonState} acceptHandler={outBoundCall} />
         <HangUpButton status={buttonState} disconnectHandler={disconnectCall} />
-        <CallInputs phoneNo={number} setNumber={setNumber} flowId={contactFlowId} setFlowId={setContactFlowId} queueArn={queueARN} setQueue={setQueueArn} />
+        <CallInputs
+          source={sourcePhone}
+          setSource={setSourcePhone}
+          dest={destPhone}
+          setDest={setDestPhone}
+          flowId={contactFlowId}
+          setFlowId={setContactFlowId}
+          instance={instanceId}
+          setInstance={setConnectInstanceId}
+          queueArn={queueARN}
+          setQueue={setQueueArn} />
       </div>
     </>
   );
