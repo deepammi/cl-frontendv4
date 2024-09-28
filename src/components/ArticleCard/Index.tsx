@@ -1,23 +1,27 @@
 import { Card } from "antd";
 import Image from "next/image";
 import React from "react";
-import ArticleImgUrl from "@Image/ArticleImage1.svg";
 import Link from "next/link";
-export default function ArticleCard({imgUrl}:{imgUrl:string}) {
+export default function ArticleCard({
+  imgUrl,
+  dateSting,
+  title,
+  desc,
+}: {
+  imgUrl: string;
+  dateSting: string;
+  title: string;
+  desc: string;
+}) {
   return (
-    <Card style={{ width: "100%", padding: "0.5%" }}>
+    <Card className="w-[100%] h-[33rem] p-[0.5%]">
       <div>
-        <Image src={imgUrl} alt="img" />
+        <Image src={imgUrl} alt="img" className="w-[100%]" />
       </div>
-      <div>November 15, 2022</div>
-      <div>10 Top tips for making your Saas product sticky</div>
-      <div>
-        Conduct regular user research to stay aligned with their evolving
-        requirements.Ensure a smooth and intuitive onboarding process to engage
-        users from the start. Regularly update features and provide meaningful
-        benefits that solve real problems.
-      </div>
-      <div>
+      <div className="text-[#2A3349] mt-[2%]">{dateSting}</div>
+      <div className="text-[#000] text-center mt-[3%] font-medium text-[1.5rem]">{title}</div>
+      <div className="text-[#2A3349] mt-[3%]">{desc}</div>
+      <div className="text-center mt-[2%]">
         <Link href={"#"}>Read More</Link>
       </div>
     </Card>
