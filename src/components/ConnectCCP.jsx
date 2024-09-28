@@ -13,7 +13,7 @@ const ConnectCCP = ({ phoneNum}) => {
   const [destPhone, setDestPhone] = useState("");
   const [contactFlowId, setContactFlowId] = useState("b7f26976-0dc7-4391-b43d-bf6ea1b19e91");
   const [instanceId, setConnectInstanceId] = useState("695227e1-08a7-41ff-b42e-1fd6f882ea55");
-  const [queueARN, setQueueArn] = useState("695227e1-08a7-41ff-b42e-1fd6f882ea55");
+  const [queueARN, setQueueArn] = useState("a81629fc-0c52-4589-ace8-34c2e2818e39");
 
   const [buttonState, setButtonState] = useState("enabled");
   //for testing hard coded destination phone number
@@ -88,7 +88,7 @@ const ConnectCCP = ({ phoneNum}) => {
 
     try {
       const { data } = await axios.get(
-        `https://o2xpogtamg.execute-api.us-east-1.amazonaws.com/dev/GetConnectManager?destPhone=%2B${destPhone}&queueARN=${queueARN}&sourcePhone=${sourcePhone}&instanceId=${instanceId}&contactFlowId=${contactFlowId}`
+        `https://o2xpogtamg.execute-api.us-east-1.amazonaws.com/dev/GetConnectManager?destPhone=%2B${destPhone}&queueARN=${queueARN}&sourcePhone=%2B${sourcePhone}&instanceId=${instanceId}&contactFlowId=${contactFlowId}`
       );
       setContactId(JSON.parse(data.body).ContactId);
       setButtonState("hangUpActived");
