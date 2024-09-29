@@ -22,7 +22,7 @@ export default function index({
             <Image alt="example" src={ImgUrl} className="w-1/2 aspect-[1/1]" />
           </div>
           <div>
-            <div className="text-[1rem] text-center font-semibold mb-2">
+            <div className="text-[1rem] text-center font-bold mb-2">
               {Title}
             </div>
             <div className="text-[1rem]">{Description}</div>

@@ -17,6 +17,7 @@ import Trails from "@/components/LandingPageSection/TrailSection";
 import Footer from "@/components/Footer/index";
 import EaseOfUse from "@/components/LandingPageSection/EaseOfUse/index";
 import ArticleSection from "@/components/LandingPageSection/ArticleSection/indes";
+import QuickStartImgUrl from "@Image/QuickStartImg.svg";
 
 export default function Home() {
   return (
@@ -54,7 +55,7 @@ export default function Home() {
           <h1 className="text-center text-3xl text-[#4B5264] font-bold mb-8">
             Using Magic of Generative AI to Upend Pre-Sales
           </h1>
-          <Row gutter={[30, 30]} justify="center">
+          <Row gutter={[32, 32]} justify="center">
             <FeatureCard
               ImgUrl={AutomateCallScriptIconUrl}
               Title={"Automated Call-scripts"}
@@ -79,139 +80,13 @@ export default function Home() {
             />
           </Row>
         </div>
-        <div
-          style={{
-            height: "50rem",
-            width: "100%",
-            padding: "10%",
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-          }}
-        >
-          <div
-            style={{
-              display: "flex",
-              height: "100%",
-              width: "80%",
-              border: "1px solid #E4E4E4",
-              borderRadius: "70px",
-              position: "relative",
-              gap: "5%",
-              boxShadow: "6px 6px 4px 0px rgba(0, 0, 0, 0.25)",
-            }}
-          >
+        <div className="p-[5%] flex items-center justify-center">
+          <div className="flex items-center justify-center">
             <Image
-              src={CoinIconUrl}
-              alt="coin"
-              style={{
-                position: "absolute",
-                top: "-15%",
-                right: "-10%",
-              }}
+              src={QuickStartImgUrl}
+              alt="img"
+              className="w-[70%] sm:w-[70%] md:w-[80%]"
             />
-            <div
-              style={{
-                flexBasis: "35%",
-                width: "100%",
-                backgroundColor: "red",
-              }}
-            >
-              <Image
-                src={GrowGraphIconUrl}
-                alt="img"
-                style={{
-                  height: "100%",
-                  width: "100%",
-                }}
-              />
-            </div>
-            <div style={{ flexBasis: "50%", margin: "5% 0" }}>
-              <div
-                style={{
-                  color: "#000",
-                  textAlign: "center",
-                  fontFamily: "DM Sans",
-                  fontSize: "3rem",
-                  fontWeight: "700",
-                }}
-              >
-                Quick-start SaaS
-              </div>
-              <div
-                style={{
-                  fontFamily: "Inter",
-                  fontSize: "1rem",
-                  marginTop: "15%",
-                }}
-              >
-                <span style={{ fontWeight: "700" }}>
-                  No Training or Setup Required:
-                </span>{" "}
-                Seamlessly incorporate our solution without the need for
-                extensive training or setup
-              </div>
-              <div
-                style={{
-                  fontFamily: "Inter",
-                  fontSize: "1rem",
-                  marginTop: "5%",
-                }}
-              >
-                <span style={{ fontWeight: "700" }}>
-                  Fits Your Existing Workflow:
-                </span>{" "}
-                Easily integrates into your current IT infrastructure.
-              </div>
-              <div
-                style={{
-                  fontFamily: "Inter",
-                  fontSize: "1rem",
-                  marginTop: "5%",
-                }}
-              >
-                <span style={{ fontWeight: "700" }}>Instant Impact:</span>{" "}
-                Experience measurable results in minutes, not months.
-              </div>
-              <div
-                style={{
-                  marginTop: "10%",
-                  display: "flex",
-                  gap: "5%",
-                }}
-              >
-                <div
-                  style={{
-                    backgroundColor: "#7078DF",
-                    borderRadius: "20%",
-                    padding: "5%",
-                  }}
-                >
-                  <Image src={MoneyIconUrl} alt="money" />
-                </div>
-                <div>
-                  <div
-                    style={{
-                      fontSize: "2rem",
-                      fontWeight: "700",
-                      fontFamily: "Inter",
-                    }}
-                  >
-                    Cost Effective
-                  </div>
-                  <div
-                    style={{
-                      fontSize: "0.75rem",
-                      fontFamily: "DM Sans",
-                      marginTop: "2%",
-                    }}
-                  >
-                    Save up to 90% on expenses.: Improve outcomes significantly
-                    while optimizing resources.
-                  </div>
-                </div>
-              </div>
-            </div>
           </div>
         </div>
         <ArticleSection />

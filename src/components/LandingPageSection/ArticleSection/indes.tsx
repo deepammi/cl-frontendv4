@@ -7,13 +7,11 @@ import ArticleImgUrl3 from "@Image/ArticleImage3.svg";
 
 export default function ArticleSection() {
   return (
-    <div className="flex flex-col items-center gap-8 p-[10%]">
+    <div className="flex flex-col items-center gap-8 pl-[10%] pl-[10%] pt-[5%] pb-[5%]">
       <div className="text-[1.8rem] md:text-[2.5rem] font-bold text-[#4B5264]">
         Most Popular Article
       </div>
-      <div
-        style={{ display: "flex", justifyContent: "space-between", gap: "5%" }}
-      >
+      <div className="flex justify-between gap-2 md:gap-4">
         <Button className="!bg-[#737EEF] !text-[white] !text-[0.5rem] md:!text-[0.9rem]">{`01. Upload Campaign`}</Button>
         <Button className="!text-[0.5rem] md:!text-[0.9rem]">{`02. Ai Automates Presales`}</Button>
         <Button className="!text-[0.5rem] md:!text-[0.9rem]">{`03. Instant Result`}</Button>
