@@ -14,7 +14,7 @@ const AiChat = () => {
   const handleSendMessage = async () => {
     // Make a request to the ChatGPT API with the user input
     const response = await axios.post(
-      `${process.env.NEXT_PUBLIC_API_BASEURL}/chatbot`,
+      "https://app-endcl.azurewebsites.net/chatbot",
       { input: input }
     );
 

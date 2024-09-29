@@ -57,7 +57,7 @@ const CallerDashboard = ({ records }: Props) => {
       },
     };
     const response = await axios.post(
-      `${process.env.NEXT_PUBLIC_API_BASEURL}/assessments`,
+      "https://app-endcl.azurewebsites.net/assessments",
       payload,
       config
     );
