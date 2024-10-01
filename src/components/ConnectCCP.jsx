@@ -9,7 +9,7 @@ import CallInputs from "./CallInputs";
 const ConnectCCP = ({ phoneNum}) => {
   const ref = useRef();
   const [contactId, setContactId] = useState("");
-  const [sourcePhone, setSourcePhone] = useState("1" + phoneNum.replace(/\D/g, ""));
+  const [sourcePhone, setSourcePhone] = useState("1" + phoneNum?.replace(/\D/g, ""));
   const [destPhone, setDestPhone] = useState("");
   const [contactFlowId, setContactFlowId] = useState("b7f26976-0dc7-4391-b43d-bf6ea1b19e91");
   const [instanceId, setConnectInstanceId] = useState("695227e1-08a7-41ff-b42e-1fd6f882ea55");
