@@ -158,7 +158,7 @@ const CallerDashboard = ({ records }: Props) => {
 
   const RenderInfoTable = () => {
     return (
-      <div className="w-100 ml-[10%] mr-[10%] pt-[1%] pb-[1%] pl-[5%] pr-[5%] shadow-md border">
+      <div className="w-100 ml-[5%] md:ml-[15%] mr-[5%] md:mr-[15%] pt-[1%] pb-[1%] pl-[5%] pr-[5%] shadow-md border">
         <Row gutter={[80, 32]}>
           <Col span={24} className="w-100">
             <div className="w-100 flex items-center justify-between">
@@ -166,12 +166,17 @@ const CallerDashboard = ({ records }: Props) => {
                 className="flex gap-2 items-center cursor-pointer"
                 onClick={handlePrev}
               >
-                <Image src={PreviousIconUrl} alt="previous" />
-                <div>Previous</div>
+                <Image
+                  src={PreviousIconUrl}
+                  alt="previous"
+                  className="w-[0.8rem] md:w-[1.2rem]"
+                />
+                <div className="text-[0.8rem] md:text-[1rem]">Previous</div>
               </div>
-              <div className="w-[30%]">
+              <div className="w-[50%] md:w-[30%]">
                 <Input.Group
                   compact
+                  size="small"
                   style={{
                     display: "flex",
                     borderRadius: "50px",
@@ -212,8 +217,12 @@ const CallerDashboard = ({ records }: Props) => {
                 className="flex items-center gap-2 cursor-pointer"
                 onClick={handleNext}
               >
-                <div>Next</div>
-                <Image src={NextIconUrl} alt="next" />
+                <div className="text-[0.8rem] md:text-[1rem]">Next</div>
+                <Image
+                  src={NextIconUrl}
+                  alt="next"
+                  className="w-[0.8rem] md:w-[1.2rem]"
+                />
               </div>
             </div>
           </Col>
@@ -286,9 +295,7 @@ const CallerDashboard = ({ records }: Props) => {
     );
   };
 
-  const getItems: (panelStyle: CSSProperties) => CollapseProps["items"] = (
-    panelStyle
-  ) => {
+  const getItems: () => CollapseProps["items"] = () => {
     const callScripts = [
       {
         label: "Intro : LinkedIn Post",
@@ -335,61 +342,116 @@ const CallerDashboard = ({ records }: Props) => {
     const CollapseItems = callScripts.map(({ label, desc }, index) => {
       return {
         key: `${index + 1}`,
-        label: <div className="text-2xl font-medium">{label}</div>,
+        label: (
+          <div className="text-xl md:text-2xl font-medium w-100">{label}</div>
+        ),
         children: (
-          <div className="flex flex-col gap-4 items-center">
-            <div>{desc}</div>
-            <div className="flex items-center justify-between w-[80%] align-center">
-              <div className="flex gap-6">
-                <Image src={LikeOutlinedIconUrl} alt="like" />
-                <Image src={DislikeOutlinedIconUrl} alt="dislike" />
+          <div className=" flex flex-col gap-4 items-center w-[100%]">
+            <div className="text-sm md:text-base">{desc}</div>
+            <div className="flex items-center justify-between w-[90%] md:w-[80%]  align-center">
+              <div className="flex gap-4 md:gap-6">
+                <Image
+                  src={LikeOutlinedIconUrl}
+                  alt="like"
+                  className="w-[0.9rem] md:w-[1.1rem]"
+                />
+                <Image
+                  src={DislikeOutlinedIconUrl}
+                  alt="dislike"
+                  className="w-[0.9rem] md:w-[1.1rem]"
+                />
               </div>
-              <div className="w-[50%]">
+              <div className="w-[40%] md:w-[50%]">
                 <input
                   placeholder="Comments"
                   className="border-2 border-[#000000] rounded-full pl-3 w-[100%] pt-1 pb-1"
                 />
               </div>
-              <Button type="primary" shape="round">
+              <Button
+                type="primary"
+                shape="round"
+                className="text-base md:text-lg lg:text-xl px-4 md:px-6 lg:px-8"
+              >
                 Submit
               </Button>
             </div>
           </div>
         ),
-        style: panelStyle,
+        style: { width: "100%", backgroundColor: "inherit" },
       };
     });
     return CollapseItems;
   };
 
-  const { token } = theme.useToken();
-
-  const panelStyle: React.CSSProperties = {
-    marginBottom: 24,
-    background: token.colorFillAlter,
-    borderRadius: token.borderRadiusLG,
-    border: "none",
-  };
-
   const RenderCallScript = () => {
     return (
-      <div className="flex flex-col gap-4 items-center mt-[3%] ">
-        <div className="text-[2rem] font-bold">Call Script</div>
-        <Collapse
-          bordered={false}
-          defaultActiveKey={["1"]}
-          expandIcon={({ isActive }) => (
-            <Image src={PlusExpandIconUrl} alt="expand" />
-          )}
-          expandIconPosition="end"
-          style={{ background: "white", padding: "1rem", width: "100%" }}
-          items={getItems(panelStyle)}
-        />
+      <div className="flex flex-col gap-8 items-center mt-[3%] ml-[5%] md:ml-[10%] mr-[5%] md:mr-[10%]">
+        <div className="text-2xl md:text-3xl font-semibold">Call Script</div>
+        <div className="w-[100%] border-2 rounded shadow-md">
+          <Collapse
+            bordered={false}
+            defaultActiveKey={["1"]}
+            expandIcon={({ isActive }) => (
+              <Image
+                src={PlusExpandIconUrl}
+                alt="expand"
+                className="w-[0.9rem] md:w-[1.2rem]"
+              />
+            )}
+            expandIconPosition="end"
+            style={{ padding: "1rem", width: "100%" }}
+            items={getItems()}
+            collapsible={"icon"}
+            ghost={true}
+          />
+        </div>
       </div>
     );
   };
 
   const dataSource = [
+    {
+      key: "1",
+      date: "6/2/24",
+      summary:
+        "The customer demonstrated interest in learning more about the embedding model and in doing a pilot. He asked for a call back in August.",
+      callRecording: "www.caallrecordinglink1.com",
+    },
+    {
+      key: "1",
+      date: "6/2/24",
+      summary:
+        "The customer demonstrated interest in learning more about the embedding model and in doing a pilot. He asked for a call back in August.",
+      callRecording: "www.caallrecordinglink1.com",
+    },
+    {
+      key: "1",
+      date: "6/2/24",
+      summary:
+        "The customer demonstrated interest in learning more about the embedding model and in doing a pilot. He asked for a call back in August.",
+      callRecording: "www.caallrecordinglink1.com",
+    },
+    {
+      key: "1",
+      date: "6/2/24",
+      summary:
+        "The customer demonstrated interest in learning more about the embedding model and in doing a pilot. He asked for a call back in August.",
+      callRecording: "www.caallrecordinglink1.com",
+    },
+    {
+      key: "1",
+      date: "6/2/24",
+      summary:
+        "The customer demonstrated interest in learning more about the embedding model and in doing a pilot. He asked for a call back in August.",
+      callRecording: "www.caallrecordinglink1.com",
+    },
+    {
+      key: "1",
+      date: "6/2/24",
+      summary:
+        "The customer demonstrated interest in learning more about the embedding model and in doing a pilot. He asked for a call back in August.",
+      callRecording: "www.caallrecordinglink1.com",
+    },
     {
       key: "1",
       date: "6/2/24",
@@ -446,22 +508,23 @@ const CallerDashboard = ({ records }: Props) => {
 
   const RenderCallHistory = () => {
     return (
-      <div className="flex flex-col gap-4 items-center mt-[3%]">
-        <div className="text-3xl font-bold">Call History</div>
-        <div className="flex gap-8">
-          <Button type="primary" shape="round">
+      <div className="flex flex-col gap-8 items-center mt-[3%]">
+        <div className="text-2xl md:text-3xl font-semibold">Call History</div>
+        <div className="flex gap-4 md:gap-10">
+          <Button type="primary" shape="round" size="small">
             Fetch Call History
           </Button>
-          <Button type="primary" shape="round">
+          <Button type="primary" shape="round" size="small">
             Fetch Call Details
           </Button>
         </div>
-        <div>
+        <div className="px-[5%] md:px-[15%]">
           <Table
             dataSource={dataSource}
             columns={columns}
             bordered
-            pagination={false} // Disable pagination for this table
+            pagination={false}
+            style={{backgroundColor:"inherit"}}
           />
         </div>
       </div>
@@ -470,7 +533,7 @@ const CallerDashboard = ({ records }: Props) => {
 
   const RenderFAQ = () => {
     return (
-      <div className="mt-[4%] flex flex-col items-center gap-6 text-4xl font-semibold">
+      <div className="mt-[4%] mx-[5%] md:mx-[10%] flex flex-col items-center gap-6 text-4xl font-semibold">
         <AntDModal
           centered={true}
           title={"FAQ"}
@@ -527,7 +590,7 @@ const CallerDashboard = ({ records }: Props) => {
 
   const RenderCallNotes = () => {
     return (
-      <div className="mt-[3%] flex flex-col items-center gap-8">
+      <div className="mt-[3%] mx-[5%] md:mx-[15%] flex flex-col items-center gap-8">
         <div className="text-4xl font-semibold">Your Call notes</div>
         <div className="flex items-center justify-between gap-10">
           <div className="flex items-center gap-2">
@@ -557,7 +620,7 @@ const CallerDashboard = ({ records }: Props) => {
 
   const RenderProductServiceQN = () => {
     return (
-      <div className="mt-10 flex flex-col gap-4 items-center">
+      <div className="mt-10 mx-[5%] md:mx-[15%] flex flex-col gap-4 items-center">
         <div className="text-4xl font-semibold">
           Ask Product/Services Question
         </div>
@@ -582,7 +645,7 @@ const CallerDashboard = ({ records }: Props) => {
 
   const RenderQNSection = () => {
     return (
-      <div className="mt-10 flex flex-col gap-4 items-center">
+      <div className="mt-10 mx-[5%] md:mx-[15%] flex flex-col gap-4 items-center">
         <div className="text-4xl font-semibold">Ask Anything</div>
         <div className="font-medium">General Q&A</div>
         <div className="w-[70%] p-4 border border-[#000000] radius-md shadow-sm flex flex-col gap-6 items-center">
@@ -602,13 +665,13 @@ const CallerDashboard = ({ records }: Props) => {
   };
 
   return (
-    <div className="mt-[5%]">
-      <div className="max-w-screen-xl mx-auto px-20">
+    <div className="mt-[10%] md:mt-[5%]">
+      <div className=" flex flex-col items-center">
         <div className="flex flex-col items-center py-10">
-          <h1 className="text-xl sm:text-2xl md:text-5xl mb-2 font-[700] text-center">
+          <div className="text-xl sm:text-2xl md:text-3xl lg:text-4xl mb-2 font-semibold text-center">
             Caller Dashboard
-          </h1>
-          <p className="text-[0.8rem] md:text-[1.2rem] font-medium text-center">
+          </div>
+          <p className="text-[0.7rem] md:text-[1rem] font-medium text-center">
             All you need to create call magic
           </p>
         </div>
@@ -616,18 +679,19 @@ const CallerDashboard = ({ records }: Props) => {
         {RenderInfoTable()}
 
         <div className="flex items-center mt-[2%] justify-center">
-          <div className="flex gap-[6rem] border-2 pt-2 pb-2 pl-10 pr-10 border-[#CCCCCC] rounded-full">
-            <Image src={DialCallIconUrl} alt="dialCall" />
-            <Image src={CutCallIconUrl} alt="cut" />
+          <div className="flex gap-[3rem] md:gap-[6rem] border-2 pt-2 pb-2 pl-10 pr-10 border-[#CCCCCC] rounded-full">
+            <Image
+              src={DialCallIconUrl}
+              alt="dialCall"
+              className="w-[1.2rem] md:w-[1.7rem]"
+            />
+            <Image
+              src={CutCallIconUrl}
+              alt="cut"
+              className="w-[1.3rem] md:w-[1.8rem]"
+            />
           </div>
         </div>
-
-        {RenderCallScript()}
-        {RenderCallHistory()}
-        {RenderFAQ()}
-        {RenderCallNotes()}
-        {RenderProductServiceQN()}
-        {RenderQNSection()}
 
         {/* <div className="flex flex-wrap justify-center lg:justify-between py-10 gap-20">
           <div className="flex flex-wrap gap-10 justify-center lg:justify-between items-end w-full">
@@ -649,6 +713,12 @@ const CallerDashboard = ({ records }: Props) => {
           ))}
         </div> */}
       </div>
+      {RenderCallScript()}
+      {RenderCallHistory()}
+      {RenderFAQ()}
+      {RenderCallNotes()}
+      {RenderProductServiceQN()}
+      {RenderQNSection()}
 
       {/* <div className="p-10">
         <div className="max-w-screen-lg mx-auto">
@@ -828,7 +898,7 @@ const CallerDashboard = ({ records }: Props) => {
           </div>
         </div>
       </section> */}
-{/*
+      {/*
       <hr className="border-gray-300" /> */}
 
       {/* <section className="py-20">
