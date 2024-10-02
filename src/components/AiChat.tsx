@@ -1,5 +1,7 @@
 "use client";
 
+import { Button, Input } from "antd";
+import TextArea from "antd/es/input/TextArea";
 import axios from "axios";
 import { useState } from "react";
 
@@ -27,28 +29,22 @@ const AiChat = () => {
 
   return (
     <>
-      <div className="bg-white px-5 py-10 mt-5 rounded-sm">
-        <div className="h-[500px] overflow-y-auto">
-          {messages.map((message: any, index: number) => (
-            <div key={index} className={message.role}>
-              <div className="mb-5">{message.content}</div>
-            </div>
-          ))}
-        </div>
-
-        <textarea
-          className="w-full p-5 mb-5 border border-gray-800"
-          placeholder="Type free form query here"
-          rows={2}
-          value={input}
-          onChange={handleInputChange}
-        ></textarea>
-        <button
-          onClick={handleSendMessage}
-          className="py-5 px-10 bg-[#5236FF] hover:bg-[#422ae0] text-white text-xl rounded-full"
-        >
+      <div className="w-[70%] p-4 border border-[#000000] radius-md shadow-sm flex flex-col gap-6 items-center">
+        <TextArea
+          placeholder="For any selling-side questions use this chat bot"
+          autoSize={{ minRows: 8 }}
+          bordered={false}
+          value={messages}
+          disabled
+        />
+        <Input
+          placeholder="Type free from query here"
+          size="large"
+          onChange={(e) => setInput(e.target.value)}
+        />
+        <Button type="primary" shape="round" onClick={handleSendMessage}>
           Get Answer
-        </button>
+        </Button>
       </div>
     </>
   );

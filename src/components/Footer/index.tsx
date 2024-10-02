@@ -36,7 +36,7 @@ export default function Footer() {
               Pages
             </div>
             <div className="w-[60%] flex flex-col items-center text-center text-[1rem] gap-4 text-[#2E3C51] font-[450]">
-              <Link href={"#"} className="text-inherit">
+              <Link href={"/"} className="text-inherit">
                 <div>Home</div>
               </Link>
               <Link href={"#"} className="text-inherit">

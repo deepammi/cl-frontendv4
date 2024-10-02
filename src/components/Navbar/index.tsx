@@ -12,7 +12,7 @@ const Navbar = () => {
   const isLoggedIn = useAuth();
   const router = useRouter();
   const [visible, setVisible] = useState(false);
-  const [selectedMenu, setSelectedMenu] = useState<string[]>(["pre_sales_ai"]);
+  const [selectedMenu, setSelectedMenu] = useState<string[]>([]);
 
   const showDrawer = () => {
     setVisible(!visible);
@@ -23,8 +23,6 @@ const Navbar = () => {
   const navigateToHandler = (key: string) => {
     if (key === "sign_in") {
       router.push("/login");
-    } else if (key === "pre_sales_ai") {
-      router.push("/");
     }
     return;
   };
@@ -45,7 +43,7 @@ const Navbar = () => {
       style={{ backgroundColor: "transparent", width: "100%" }}
     >
       <div className="flex justify-between items-center">
-        <div className="flex gap-4 items-center">
+        <div className="flex gap-4 items-center cursor-pointer" onClick={()=>router.push("/")}>
           <Image src={logoIconUrl} alt="logo" width={60} height={60} />
           <Title level={3} style={{ color: "#767BDE", fontWeight: "800" }}>
             Turigma.ai

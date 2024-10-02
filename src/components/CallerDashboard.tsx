@@ -1,7 +1,6 @@
 "use client";
-import { CSSProperties, useEffect, useState } from "react";
+import { useState } from "react";
 import "react-responsive-modal/styles.css";
-import { Modal } from "react-responsive-modal";
 import axios from "axios";
 import AiChat from "./AiChat";
 import Accordion from "./Accordion";
@@ -15,7 +14,6 @@ import {
   Row,
   Select,
   Table,
-  theme,
   Modal as AntDModal,
 } from "antd";
 const { TextArea } = Input;
@@ -64,7 +62,6 @@ const CallerDashboard = ({ records }: Props) => {
     }
   };
 
-  // Function to go back to the previous item
   const handlePrev = () => {
     if (currentIndex > 0) {
       setCurrentIndex(currentIndex - 1);
@@ -646,18 +643,7 @@ const CallerDashboard = ({ records }: Props) => {
         <div className="font-medium">
           Ask any question about what we are seeling
         </div>
-        <div className="w-[70%] p-4 border border-[#000000] radius-md shadow-sm flex flex-col gap-6 items-center">
-          <TextArea
-            placeholder="For any selling-side questions use this chat bot"
-            autoSize={{ minRows: 8 }}
-            bordered={false}
-            disabled
-          />
-          <Input placeholder="Type free from query here" size="large" />
-          <Button type="primary" shape="round">
-            Get Answer
-          </Button>
-        </div>
+        <AiChat />
       </div>
     );
   };
@@ -667,18 +653,7 @@ const CallerDashboard = ({ records }: Props) => {
       <div className="mt-10 mx-[5%] md:mx-[15%] flex flex-col gap-4 items-center">
         <div className="text-4xl font-semibold">Ask Anything</div>
         <div className="font-medium">General Q&A</div>
-        <div className="w-[70%] p-4 border border-[#000000] radius-md shadow-sm flex flex-col gap-6 items-center">
-          <TextArea
-            placeholder="For any selling-side questions use this chat bot"
-            autoSize={{ minRows: 8 }}
-            bordered={false}
-            disabled
-          />
-          <Input placeholder="Type free from query here" size="large" />
-          <Button type="primary" shape="round">
-            Get Answer
-          </Button>
-        </div>
+        <AiChat />
       </div>
     );
   };
@@ -726,47 +701,6 @@ const CallerDashboard = ({ records }: Props) => {
       {RenderCallNotes()}
       {RenderProductServiceQN()}
       {RenderQNSection()}
-      {/*
-      <hr className="border-gray-300" /> */}
-
-      {/* <section className="py-20">
-        <div className="max-w-screen-xl mx-auto px-20">
-          <p className="text-[25px]">
-            For any selling-side questions use this chat bot
-          </p>
-          <div className="bg-[#5236FF] p-4 rounded-lg mt-5">
-            <p className="text-3xl text-white">Ask Sell-side Queries</p>
-            <AiChat />
-          </div>
-        </div>
-      </section> */}
-
-      {/* <section className="py-20">
-        <div className="max-w-screen-xl mx-auto px-20">
-          <p className="text-[25px]">
-            For any general questions use this chat bot
-          </p>
-          <p>
-            (Note: this bot can answer general questions too, but can be less
-            reliable sometimes. So double check responses)
-          </p>
-          <div className="bg-[#5236FF] p-4 rounded-lg mt-5">
-            <p className="text-3xl text-white">AI Co-pilot</p>
-            <AiChat />
-          </div>
-        </div>
-      </section> */}
-
-      {/* {selectedFaq && (
-        <Modal open={openModal} onClose={() => setOpenModal(false)}>
-          <p className="mb-5">{selectedFaq.q}</p>
-          <div className="space-y-6">
-            <p className="text-base leading-relaxed text-gray-500 dark:text-gray-400">
-              {selectedFaq.a}
-            </p>
-          </div>
-        </Modal>
-      )} */}
     </div>
   );
 };
