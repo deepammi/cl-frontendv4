@@ -5,8 +5,11 @@ import axios from "axios";
 import CallButton from "./phone/CallButton";
 import HangUpButton from "./phone/HangUpButton";
 import CallInputs from "./CallInputs";
+import DialCallIconUrl from "@Image/DialCallIcon.svg";
+import CutCallIconUrl from "@Image/CutCallIcon.svg";
+import Image from "next/image";
 
-const ConnectCCP = ({ phoneNum}) => {
+const ConnectCCP = ({ phoneNum }) => {
   const ref = useRef();
   const [contactId, setContactId] = useState("");
   const [sourcePhone, setSourcePhone] = useState("1" + phoneNum?.replace(/\D/g, ""));
@@ -19,72 +22,75 @@ const ConnectCCP = ({ phoneNum}) => {
   //for testing hard coded destination phone number
   var testnumber = "19253329769"; // for testing only
   //var testnumber = "523222150066";
+
   var testing = false; //change this flag if not testing code
 
   useEffect(() => {
     const update = async () => {
-    if (typeof navigator !== 'undefined') {
-    try {
-      (await import("amazon-connect-streams"));
-      connect.core.initCCP(ref.current, {
-        ccpUrl: "https://tbi-test-connect.my.connect.aws/connect/ccp-v2",
-        region: "us-east-1",
-        loginPopup: true, // optional, defaults to `true`
-        loginPopupAutoClose: true, // optional, defaults to `true`
-        loginOptions: {
-          // optional, if provided opens login in new window
-          autoClose: true, // optional, defaults to `false`
-          height: 600, // optional, defaults to 578
-          width: 400, // optional, defaults to 433
-          top: 0, // optional, defaults to 0
-          left: 0, // optional, defaults to 0
-        },
-        softphone: {
-          // optional, defaults below apply if not provided
-          allowFramedSoftphone: true, // optional, defaults to false
-          disableRingtone: false, // optional, defaults to false
-          // ringtoneUrl: "./ringtone.mp3" // optional, defaults to CCP’s default ringtone if a falsy value is set
-        },
-        pageOptions: {
-          // optional
-          enableAudioDeviceSettings: true, // optional, defaults to 'false'
-          enablePhoneTypeSettings: true, // optional, defaults to 'true'
-        },
-        contactFlowId,
-        ccpAckTimeout: 5000, //optional, defaults to 3000 (ms)
-        ccpSynTimeout: 3000, //optional, defaults to 1000 (ms)
-        ccpLoadTimeout: 10000, //optional, defaults to 5000 (ms)
-      });
-      global.connect.agent((agent) => {
-        console.log("Agent initialized");
+      if (typeof navigator !== "undefined") {
+        try {
+          await import("amazon-connect-streams");
+          connect.core.initCCP(ref.current, {
+            ccpUrl: "https://tbi-test-connect.my.connect.aws/connect/ccp-v2",
+            region: "us-east-1",
+            loginPopup: true, // optional, defaults to `true`
+            loginPopupAutoClose: true, // optional, defaults to `true`
+            loginOptions: {
+              // optional, if provided opens login in new window
+              autoClose: true, // optional, defaults to `false`
+              height: 600, // optional, defaults to 578
+              width: 400, // optional, defaults to 433
+              top: 0, // optional, defaults to 0
+              left: 0, // optional, defaults to 0
+            },
+            softphone: {
+              // optional, defaults below apply if not provided
+              allowFramedSoftphone: true, // optional, defaults to false
+              disableRingtone: false, // optional, defaults to false
+              // ringtoneUrl: "./ringtone.mp3" // optional, defaults to CCP’s default ringtone if a falsy value is set
+            },
+            pageOptions: {
+              // optional
+              enableAudioDeviceSettings: true, // optional, defaults to 'false'
+              enablePhoneTypeSettings: true, // optional, defaults to 'true'
+            },
+            contactFlowId,
+            ccpAckTimeout: 5000, //optional, defaults to 3000 (ms)
+            ccpSynTimeout: 3000, //optional, defaults to 1000 (ms)
+            ccpLoadTimeout: 10000, //optional, defaults to 5000 (ms)
+          });
+          global.connect.agent((agent) => {
+            console.log("Agent initialized");
 
-        // Handle agent state changes
-        agent.onStateChange((state) => {
-          console.log("Agent state changed:", state);
-        });
+            // Handle agent state changes
+            agent.onStateChange((state) => {
+              console.log("Agent state changed:", state);
+            });
 
-        // Handle agent error
-        agent.onError((error) => {
-          console.error("Agent error:", error);
-        });
+            // Handle agent error
+            agent.onError((error) => {
+              console.error("Agent error:", error);
+            });
 
-        // Handle agent availability
-        agent.onRoutableState((routableState) => {
-          console.log("Agent routable state:", routableState);
-        });
-      });
-      console.log("initCCP end");
-    } catch (error) {
-      console.error("Error initializing CCP:", error);
-    }
-  }
-  }
-  update();
+            // Handle agent availability
+            agent.onRoutableState((routableState) => {
+              console.log("Agent routable state:", routableState);
+            });
+          });
+          console.log("initCCP end");
+        } catch (error) {
+          console.error("Error initializing CCP:", error);
+        }
+      }
+    };
+    update();
   }, [ref]);
 
   const outBoundCall = async () => {
     setButtonState("callActived");
-    if (testing) {setDestPhone(testnumber)};
+    if (testing) {
+      setDestPhone(testnumber);
+    }
 
     try {
       const { data } = await axios.get(
@@ -112,8 +118,24 @@ const ConnectCCP = ({ phoneNum}) => {
 
   return (
     <>
-      <div ref={ref} style={{ display: "none" }} />
-      <div className="flex justify-between mb-5">
+      <div className="flex items-center mt-[2%] justify-center">
+        <div className="flex gap-[3rem] md:gap-[6rem] border-2 pt-2 pb-2 pl-10 pr-10 border-[#CCCCCC] rounded-full">
+          <Image
+            src={DialCallIconUrl}
+            alt="dialCall"
+            className="w-[1.2rem] md:w-[1.7rem] cursor-pointer"
+            onClick={outBoundCall}
+          />
+          <Image
+            src={CutCallIconUrl}
+            alt="cut"
+            className="w-[1.3rem] md:w-[1.8rem] cursor-pointer"
+            onClick={disconnectCall}
+          />
+        </div>
+      </div>
+      {/* <div ref={ref} style={{ display: "none" }} /> */}
+      {/* <div className="flex justify-between mb-5">
         <CallButton status={buttonState} acceptHandler={outBoundCall} />
         <HangUpButton status={buttonState} disconnectHandler={disconnectCall} />
         <CallInputs
@@ -126,8 +148,9 @@ const ConnectCCP = ({ phoneNum}) => {
           instance={instanceId}
           setInstance={setConnectInstanceId}
           queueArn={queueARN}
-          setQueue={setQueueArn} />
-      </div>
+          setQueue={setQueueArn}
+        />
+      </div> */}
     </>
   );
 };

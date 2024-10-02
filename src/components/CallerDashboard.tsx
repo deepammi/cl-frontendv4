@@ -3,7 +3,6 @@ import { useState } from "react";
 import "react-responsive-modal/styles.css";
 import axios from "axios";
 import AiChat from "./AiChat";
-import Accordion from "./Accordion";
 import ConnectCCP from "./ConnectCCP.jsx";
 import {
   Button,
@@ -30,13 +29,13 @@ import PhoneIconUrl from "@Image/PhoneIcon.svg";
 import EmailIconUrl from "@Image/FooterMailIcon.svg";
 import LocationIconUrl from "@Image/LocationIcon.svg";
 import CampaignIconUrl from "@Image/CompaignIcon.svg";
-import DialCallIconUrl from "@Image/DialCallIcon.svg";
-import CutCallIconUrl from "@Image/CutCallIcon.svg";
 import PlusExpandIconUrl from "@Image/PlusExpandIcon.svg";
 import LikeOutlinedIconUrl from "@Image/LikeOutlineIcon.svg";
 import DislikeOutlinedIconUrl from "@Image/DislikeOutlinedIcon.svg";
 import TickIconUrl from "@Image/TickIconBlueBG.svg";
 import TickIconWhiteBG from "@Image/TickIconWhiteBG.svg";
+import CallLogs from "./CallLogs";
+
 type Props = {
   records: any[];
 };
@@ -364,125 +363,11 @@ const CallerDashboard = ({ records }: Props) => {
     );
   };
 
-  const dataSource = [
-    {
-      key: "1",
-      date: "6/2/24",
-      summary:
-        "The customer demonstrated interest in learning more about the embedding model and in doing a pilot. He asked for a call back in August.",
-      callRecording: "www.caallrecordinglink1.com",
-    },
-    {
-      key: "1",
-      date: "6/2/24",
-      summary:
-        "The customer demonstrated interest in learning more about the embedding model and in doing a pilot. He asked for a call back in August.",
-      callRecording: "www.caallrecordinglink1.com",
-    },
-    {
-      key: "1",
-      date: "6/2/24",
-      summary:
-        "The customer demonstrated interest in learning more about the embedding model and in doing a pilot. He asked for a call back in August.",
-      callRecording: "www.caallrecordinglink1.com",
-    },
-    {
-      key: "1",
-      date: "6/2/24",
-      summary:
-        "The customer demonstrated interest in learning more about the embedding model and in doing a pilot. He asked for a call back in August.",
-      callRecording: "www.caallrecordinglink1.com",
-    },
-    {
-      key: "1",
-      date: "6/2/24",
-      summary:
-        "The customer demonstrated interest in learning more about the embedding model and in doing a pilot. He asked for a call back in August.",
-      callRecording: "www.caallrecordinglink1.com",
-    },
-    {
-      key: "1",
-      date: "6/2/24",
-      summary:
-        "The customer demonstrated interest in learning more about the embedding model and in doing a pilot. He asked for a call back in August.",
-      callRecording: "www.caallrecordinglink1.com",
-    },
-    {
-      key: "1",
-      date: "6/2/24",
-      summary:
-        "The customer demonstrated interest in learning more about the embedding model and in doing a pilot. He asked for a call back in August.",
-      callRecording: "www.caallrecordinglink1.com",
-    },
-    {
-      key: "2",
-      date: "5/12/24",
-      summary: "Customer busy, asked to call later",
-      callRecording: "www.caallrecordinglink2.com",
-    },
-    {
-      key: "3",
-      date: "5/10/24",
-      summary: "Did Not Pick up",
-      callRecording: "",
-    },
-    {
-      key: "4",
-      date: "10/12/24",
-      summary: "Did Not Pick up",
-      callRecording: "",
-    },
-  ];
-  const columns: any = [
-    {
-      title: <div className="text-center">Date</div>,
-      dataIndex: "date",
-      key: "date",
-      width: "15%",
-      align: "center",
-      className: "text-center",
-    },
-    {
-      title: <div className="text-center">Summary</div>,
-      dataIndex: "summary",
-      key: "summary",
-      width: "55%",
-    },
-    {
-      title: <div className="text-center">Call Recording</div>,
-      dataIndex: "callRecording",
-      key: "callRecording",
-      render: (text: string) => (
-        <a href={text} target="_blank" rel="noopener noreferrer">
-          {text || "N/A"}
-        </a>
-      ),
-      width: "30%",
-    },
-  ];
-
   const RenderCallHistory = () => {
     return (
-      <div className="flex flex-col gap-8 items-center mt-[3%]">
-        <div className="text-2xl md:text-3xl font-semibold">Call History</div>
-        <div className="flex gap-4 md:gap-10">
-          <Button type="primary" shape="round" size="small">
-            Fetch Call History
-          </Button>
-          <Button type="primary" shape="round" size="small">
-            Fetch Call Details
-          </Button>
-        </div>
-        <div className="px-[5%] md:px-[15%]">
-          <Table
-            dataSource={dataSource}
-            columns={columns}
-            bordered
-            pagination={false}
-            style={{ backgroundColor: "inherit" }}
-          />
-        </div>
-      </div>
+      <>
+        <CallLogs/>
+      </>
     );
   };
 
@@ -672,28 +557,7 @@ const CallerDashboard = ({ records }: Props) => {
 
         {RenderInfoTable()}
 
-        <div className="flex items-center mt-[2%] justify-center">
-          <div className="flex gap-[3rem] md:gap-[6rem] border-2 pt-2 pb-2 pl-10 pr-10 border-[#CCCCCC] rounded-full">
-            <Image
-              src={DialCallIconUrl}
-              alt="dialCall"
-              className="w-[1.2rem] md:w-[1.7rem] cursor-pointer"
-            />
-            <Image
-              src={CutCallIconUrl}
-              alt="cut"
-              className="w-[1.3rem] md:w-[1.8rem] cursor-pointer"
-            />
-          </div>
-        </div>
-
-        {/* <div className="flex flex-wrap justify-center lg:justify-between py-10 gap-20">
-          <div className="flex flex-wrap gap-10 justify-center lg:justify-between items-end w-full">
-            <div className="xl:w-2/12">
-              <ConnectCCP phoneNum={records[currentIndex]?.phone} />
-            </div>
-          </div>
-        </div> */}
+        <ConnectCCP phoneNum={records[currentIndex]?.phone} />
       </div>
       {RenderCallScript()}
       {RenderCallHistory()}
