@@ -53,7 +53,7 @@ const CallerDashboard = ({ records }: Props) => {
   const [openFAQModal, setOpenFAQModal] = useState<boolean>(false);
 
   const viewHandler = (payload: any) => {
-    setOpenModal(true);
+    setOpenFAQModal(true);
     setSelectedFaq(payload);
   };
 
@@ -296,58 +296,15 @@ const CallerDashboard = ({ records }: Props) => {
   };
 
   const getItems: () => CollapseProps["items"] = () => {
-    const callScripts = [
-      {
-        label: "Intro : LinkedIn Post",
-        desc: "Douglass Eberhardt of Bank of Stockton posted on March 21, 2023, about their new partnership with SolarCity to offer solar financing solutions to their customers. This collaboration aims to help Bank of Stockton clients reduce energy costs and promote sustainability. The bank also recently announced Q1 2023 earnings, reporting a 5% increase in net income compared to the same period last year.",
-      },
-      {
-        label: "Intro : LinkedIn Events",
-        desc: "I found that Douglass Eberhardt of Bank of Stockton posted about attending the American Bankers Association Regulatory Compliance Conference in Washington D.C. from March 12-16, 2023. No information was provided about any events in 2024.",
-      },
-      {
-        label: "Intro : News",
-        desc: "Bank of Stockton recently announced a strategic investment in Finastras Fusion LenderSphere solution to modernize its commercial lending operations and enhance customer experience. (Source: Bank of Stockton press release, March 2022)",
-      },
-      {
-        label: "Intro : Investments",
-        desc: "Bank of Stockton recently announced a strategic investment in Finastras Fusion LenderSphere solution to modernize its commercial lending operations and enhance customer experience. (Source: Bank of Stockton press release, March 2022)",
-      },
-      {
-        label: "Intro : Company Awards",
-        desc: "Bank of Stockton was named Best Bank to Work For by American Banker and received the Community Commitment Award from the Stockton Chamber of Commerce.",
-      },
-      {
-        label: "Buyer Job Challenges",
-        desc: "1. Ensuring data security and privacy in AI applications, with a PwC survey finding that 77% of financial services companies cite this as a concern (PwC, 2019). 2. Integrating AI into existing systems and processes, with a Deloitte study reporting that 53% of financial services firms face challenges with AI implementation (Deloitte, 2018).",
-      },
-      {
-        label: "Value Proposition",
-        desc: "Alltius.ai is a financial technology company that offers AI-powered solutions for the finance industry. Their platform uses machine learning algorithms to analyze financial data and provide actionable insights, helping customers make informed decisions and improve operational efficiency. (Source: Alltius.ai About Us section) Alltius.ais solutions include risk management, fraud detection, and customer behavior analysis. These benefits help finance companies mitigate risks, prevent fraud, and better understand their customers, ultimately leading to increased revenue and improved customer satisfaction. (Source: Alltius.ai Solutions section)",
-      },
-      {
-        label: "Case Study",
-        desc: "Alltius.ai, a financial technology company, helped a major bank reduce loan processing time by 50% using their AI-powered underwriting platform. By automating the credit decision-making process, Alltius enabled the bank to approve loans faster and more accurately, resulting in increased customer satisfaction and revenue growth. (Source: Alltius.ai press release, 2021)",
-      },
-      {
-        label: "Buyer Industry Challenges",
-        desc: "Challenge 1: Ensuring data security and privacy in implementing AI systems, with 83% of financial services firms citing this as a concern, according to a Deloitte survey. (Source: Deloitte Insights, AI in financial services: From automation to innovation, 2018) Challenge 2: Integrating AI technologies with legacy systems and ensuring compatibility, as 53% of financial services firms reported this as a challenge, according to a Capgemini report. (Source: Capgemini, World Retail Banking Report 2019: The Future of Banking is Here, 2019)",
-      },
-      {
-        label: "Buyer Values",
-        desc: "The mission of Bank of Stockton, as stated on its website, is to provide personalized financial services and solutions to individuals and businesses in the Central California region, while upholding core values of integrity, teamwork, and community involvement.",
-      },
-    ];
-
-    const CollapseItems = callScripts.map(({ label, desc }, index) => {
+    const CollapseItems = call_script.map(({ uuid, title, body }) => {
       return {
-        key: `${index + 1}`,
+        key: `${uuid}`,
         label: (
-          <div className="text-xl md:text-2xl font-medium w-100">{label}</div>
+          <div className="text-xl md:text-2xl font-medium w-100">{title}</div>
         ),
         children: (
           <div className=" flex flex-col gap-4 items-center w-[100%]">
-            <div className="text-sm md:text-base">{desc}</div>
+            <div className="text-sm md:text-base">{body}</div>
             <div className="flex items-center justify-between w-[90%] md:w-[80%]  align-center">
               <div className="flex gap-4 md:gap-6">
                 <Image
@@ -524,7 +481,7 @@ const CallerDashboard = ({ records }: Props) => {
             columns={columns}
             bordered
             pagination={false}
-            style={{backgroundColor:"inherit"}}
+            style={{ backgroundColor: "inherit" }}
           />
         </div>
       </div>
@@ -542,43 +499,76 @@ const CallerDashboard = ({ records }: Props) => {
             setOpenFAQModal(false);
           }}
           footer={null}
-        ></AntDModal>
+        >
+          <div>{`${selectedFaq?.q ?? "Question"}?`}</div>
+          <div>{`${selectedFaq?.a ?? "Answer"}.`}</div>
+        </AntDModal>
         <div>Frequently Asked Questions</div>
         <div className="w-[90%] border p-6 shadow-sm rounded">
           <Row gutter={[32, 48]}>
             <Col span={8}>
               <div
-                onClick={() => setOpenFAQModal(true)}
+                onClick={() =>
+                  viewHandler({
+                    a: records[currentIndex]?.a1,
+                    q: records[currentIndex]?.q1,
+                  })
+                }
                 className="w-100% bg-[#BAE4F1] rounded-xl h-[3rem] cursor-pointer"
               ></div>
             </Col>
             <Col span={8}>
               <div
-                onClick={() => setOpenFAQModal(true)}
+                onClick={() =>
+                  viewHandler({
+                    a: records[currentIndex]?.a2,
+                    q: records[currentIndex]?.q2,
+                  })
+                }
                 className="w-100% bg-[#BAE4F1] rounded-xl h-[3rem] cursor-pointer"
               ></div>
             </Col>
             <Col span={8}>
               <div
-                onClick={() => setOpenFAQModal(true)}
+                onClick={() =>
+                  viewHandler({
+                    a: records[currentIndex]?.a3,
+                    q: records[currentIndex]?.q3,
+                  })
+                }
                 className="w-100% bg-[#BAE4F1] rounded-xl h-[3rem] cursor-pointer"
               ></div>
             </Col>
             <Col span={8}>
               <div
-                onClick={() => setOpenFAQModal(true)}
+                onClick={() =>
+                  viewHandler({
+                    a: records[currentIndex]?.a4,
+                    q: records[currentIndex]?.q4,
+                  })
+                }
                 className="w-100% bg-[#BAE4F1] rounded-xl h-[3rem] cursor-pointer"
               ></div>
             </Col>
             <Col span={8}>
               <div
-                onClick={() => setOpenFAQModal(true)}
+                onClick={() =>
+                  viewHandler({
+                    a: records[currentIndex]?.a5,
+                    q: records[currentIndex]?.q5,
+                  })
+                }
                 className="w-100% bg-[#BAE4F1] rounded-xl h-[3rem] cursor-pointer"
               ></div>
             </Col>
             <Col span={8}>
               <div
-                onClick={() => setOpenFAQModal(true)}
+                onClick={() =>
+                  viewHandler({
+                    a: records[currentIndex]?.a6,
+                    q: records[currentIndex]?.q6,
+                  })
+                }
                 className="w-100% bg-[#BAE4F1] rounded-xl h-[3rem] cursor-pointer"
               ></div>
             </Col>
@@ -683,12 +673,12 @@ const CallerDashboard = ({ records }: Props) => {
             <Image
               src={DialCallIconUrl}
               alt="dialCall"
-              className="w-[1.2rem] md:w-[1.7rem]"
+              className="w-[1.2rem] md:w-[1.7rem] cursor-pointer"
             />
             <Image
               src={CutCallIconUrl}
               alt="cut"
-              className="w-[1.3rem] md:w-[1.8rem]"
+              className="w-[1.3rem] md:w-[1.8rem] cursor-pointer"
             />
           </div>
         </div>
@@ -700,18 +690,6 @@ const CallerDashboard = ({ records }: Props) => {
             </div>
           </div>
         </div> */}
-
-        {/* <div className="bg-[#F9F9F9] mt-20">
-          <p className="text-4xl">Call Script</p>
-          <hr />
-          <br />
-
-          {call_script.map((item) => (
-            <div key={item.uuid}>
-              <Accordion title={item.title} body={item.body} uuid={item.uuid} />
-            </div>
-          ))}
-        </div> */}
       </div>
       {RenderCallScript()}
       {RenderCallHistory()}
@@ -719,99 +697,6 @@ const CallerDashboard = ({ records }: Props) => {
       {RenderCallNotes()}
       {RenderProductServiceQN()}
       {RenderQNSection()}
-
-      {/* <div className="p-10">
-        <div className="max-w-screen-lg mx-auto">
-          <p className="text-4xl text-center mb-5">
-            Frequently Asked Questions
-          </p>
-          <div className="flex bg-[#F9F9F9] gap-5 flex-wrap p-10 justify-normal  lg:justify-center">
-            <div className="w-full lg:w-3/12 flex justify-center ">
-              <button
-                className="w-full py-10  bg-slate-300 rounded-lg px-4"
-                onClick={() =>
-                  viewHandler({
-                    a: records[currentIndex]?.a1,
-                    q: records[currentIndex]?.q1,
-                  })
-                }
-              >
-                {records[currentIndex]?.q1}
-              </button>
-            </div>
-
-            <div className="w-full lg:w-3/12 flex justify-center ">
-              <button
-                className="w-full py-10  bg-slate-300 rounded-lg px-4"
-                onClick={() =>
-                  viewHandler({
-                    a: records[currentIndex]?.a2,
-                    q: records[currentIndex]?.q2,
-                  })
-                }
-              >
-                {records[currentIndex]?.q2}
-              </button>
-            </div>
-
-            <div className="w-full lg:w-3/12 flex justify-center ">
-              <button
-                className="w-full py-10  bg-slate-300 rounded-lg px-4"
-                onClick={() =>
-                  viewHandler({
-                    a: records[currentIndex]?.a3,
-                    q: records[currentIndex]?.q3,
-                  })
-                }
-              >
-                {records[currentIndex]?.q3}
-              </button>
-            </div>
-
-            <div className="w-full lg:w-3/12 flex justify-center ">
-              <button
-                className="w-full py-10  bg-slate-300 rounded-lg px-4"
-                onClick={() =>
-                  viewHandler({
-                    a: records[currentIndex]?.a4,
-                    q: records[currentIndex]?.q4,
-                  })
-                }
-              >
-                {records[currentIndex]?.q4}
-              </button>
-            </div>
-
-            <div className="w-full lg:w-3/12 flex justify-center ">
-              <button
-                className="w-full py-10  bg-slate-300 rounded-lg px-4"
-                onClick={() =>
-                  viewHandler({
-                    a: records[currentIndex]?.a5,
-                    q: records[currentIndex]?.q5,
-                  })
-                }
-              >
-                {records[currentIndex]?.q5}
-              </button>
-            </div>
-
-            <div className="w-full lg:w-3/12 flex justify-center ">
-              <button
-                className="w-full py-10  bg-slate-300 rounded-lg px-4"
-                onClick={() =>
-                  viewHandler({
-                    a: records[currentIndex]?.a6,
-                    q: records[currentIndex]?.q6,
-                  })
-                }
-              >
-                {records[currentIndex]?.q6}
-              </button>
-            </div>
-          </div>
-        </div>
-      </div> */}
 
       {/* <section>
         <div className=" p-20">
