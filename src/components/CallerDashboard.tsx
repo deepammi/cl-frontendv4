@@ -1,14 +1,40 @@
 "use client";
-
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import "react-responsive-modal/styles.css";
-import { Modal } from "react-responsive-modal";
 import axios from "axios";
-import { AiOutlineDislike, AiOutlineLike } from "react-icons/ai";
-import FeedbackBox from "./FeedbackBox";
 import AiChat from "./AiChat";
-import Accordion from "./Accordion";
 import ConnectCCP from "./ConnectCCP.jsx";
+import {
+  Button,
+  Col,
+  Collapse,
+  CollapseProps,
+  Input,
+  Row,
+  Select,
+  Table,
+  Modal as AntDModal,
+} from "antd";
+const { TextArea } = Input;
+import PreviousIconUrl from "@Image/PreviousIcon.svg";
+import NextIconUrl from "@Image/NextIcon.svg";
+import Image from "next/image";
+import SearchIconUrl from "@Image/SearchIcon.svg";
+import DownIconUrl from "@Image/DownIcon.svg";
+const { Option } = Select;
+import PersonIconUrl from "@Image/PersonIconDark.svg";
+import CompanyIconUrl from "@Image/CompanyIcon.svg";
+import TitleIconUrl from "@Image/TitleIcon.svg";
+import PhoneIconUrl from "@Image/PhoneIcon.svg";
+import EmailIconUrl from "@Image/FooterMailIcon.svg";
+import LocationIconUrl from "@Image/LocationIcon.svg";
+import CampaignIconUrl from "@Image/CompaignIcon.svg";
+import PlusExpandIconUrl from "@Image/PlusExpandIcon.svg";
+import LikeOutlinedIconUrl from "@Image/LikeOutlineIcon.svg";
+import DislikeOutlinedIconUrl from "@Image/DislikeOutlinedIcon.svg";
+import TickIconUrl from "@Image/TickIconBlueBG.svg";
+import TickIconWhiteBG from "@Image/TickIconWhiteBG.svg";
+import CallLogs from "./CallLogs";
 
 type Props = {
   records: any[];
@@ -22,9 +48,10 @@ const CallerDashboard = ({ records }: Props) => {
   const [a2, setA2] = useState(false);
   const [a3, setA3] = useState(false);
   const [note, setNote] = useState("");
+  const [openFAQModal, setOpenFAQModal] = useState<boolean>(false);
 
   const viewHandler = (payload: any) => {
-    setOpenModal(true);
+    setOpenFAQModal(true);
     setSelectedFaq(payload);
   };
 
@@ -34,7 +61,6 @@ const CallerDashboard = ({ records }: Props) => {
     }
   };
 
-  // Function to go back to the previous item
   const handlePrev = () => {
     if (currentIndex > 0) {
       setCurrentIndex(currentIndex - 1);
@@ -78,392 +104,468 @@ const CallerDashboard = ({ records }: Props) => {
     {
       uuid: "ss_a4",
       title: "Intro: Linkedin Post",
-      body: records[currentIndex]?.call_script?.ss_a4,
+      body: records?.[currentIndex]?.call_script?.ss_a4,
     },
     {
       uuid: "bs_a5",
       title: "Intro: LinkedIn Events",
-      body: records[currentIndex]?.call_script?.bs_a5,
+      body: records?.[currentIndex]?.call_script?.bs_a5,
     },
     {
       uuid: "ss_a2",
       title: "Intro: News",
-      body: records[currentIndex]?.call_script?.ss_a2,
+      body: records?.[currentIndex]?.call_script?.ss_a2,
     },
     {
       uuid: "ss_a3",
       title: "Intro: Investments ",
-      body: records[currentIndex]?.call_script?.ss_a3,
+      body: records?.[currentIndex]?.call_script?.ss_a3,
     },
     {
       uuid: "bs_a3",
       title: "Intro: Company Awards",
-      body: records[currentIndex]?.call_script?.bs_a3,
+      body: records?.[currentIndex]?.call_script?.bs_a3,
     },
     {
       uuid: "intro",
       title: "Buyer Job Challenges ",
-      body: records[currentIndex]?.call_script?.intro,
+      body: records?.[currentIndex]?.call_script?.intro,
     },
     {
       uuid: "bs_a1",
       title: "Value Proposition",
-      body: records[currentIndex]?.call_script?.bs_a1,
+      body: records?.[currentIndex]?.call_script?.bs_a1,
     },
     {
       uuid: "bs_a4",
       title: "Case Study",
-      body: records[currentIndex]?.call_script?.bs_a4,
+      body: records?.[currentIndex]?.call_script?.bs_a4,
     },
     {
       uuid: "ss_a1",
       title: "Buyer Industry Challenges",
-      body: records[currentIndex]?.call_script?.ss_a1,
+      body: records?.[currentIndex]?.call_script?.ss_a1,
     },
     {
       uuid: "bs_a2",
       title: "Buyer Values",
-      body: records[currentIndex]?.call_script?.bs_a2,
+      body: records?.[currentIndex]?.call_script?.bs_a2,
     },
   ];
 
-  return (
-    <>
-      <div className="max-w-screen-xl mx-auto px-20">
-        <div className="flex flex-col items-center py-20">
-          <h1 className="text-5xl mb-2 font-semibold">Caller Dashboard</h1>
-          <p>All you need to create call magic</p>
-        </div>
-
-        <div className="flex flex-wrap justify-center lg:justify-between py-10 gap-20">
-          <div className="flex flex-wrap gap-10 justify-center lg:justify-between items-end w-full">
-            <div className="xl:w-7/12">
-              <div className="w-full space-y-10">
-                <div className="flex flex-col gap-10 lg:flex-row lg:gap-40 justify-between items-center">
-                  <p>First Name: {records[currentIndex]?.f_name}</p>
-                  <p>Last Name: {records[currentIndex]?.l_name}</p>
-                </div>
-
-                <div className="flex flex-col gap-10 lg:flex-row lg:gap-40 justify-between items-center">
-                  <p>Company: {records[currentIndex]?.company}</p>
-                  <p>Title: {records[currentIndex]?.title}</p>
-                </div>
-
-                <div className="flex flex-col gap-10 lg:flex-row lg:gap-40 justify-between items-center">
-                  <p>Phone: {records[currentIndex]?.phone}</p>
-                  <p>Email: {records[currentIndex]?.email}</p>
-                </div>
-
-                <div className="flex flex-col gap-10 lg:flex-row lg:gap-40 justify-between items-center">
-                  <p>Location: {records[currentIndex]?.location}</p>
-                  <p>Campaign S. No. {records[currentIndex]?.s_no}</p>
-                </div>
+  const RenderInfoTable = () => {
+    return (
+      <div className="w-100 ml-[5%] md:ml-[15%] mr-[5%] md:mr-[15%] pt-[1%] pb-[1%] pl-[5%] pr-[5%] shadow-md border">
+        <Row gutter={[80, 32]}>
+          <Col span={24} className="w-100">
+            <div className="w-100 flex items-center justify-between">
+              <div
+                className="flex gap-2 items-center cursor-pointer"
+                onClick={handlePrev}
+              >
+                <Image
+                  src={PreviousIconUrl}
+                  alt="previous"
+                  className="w-[0.8rem] md:w-[1.2rem]"
+                />
+                <div className="text-[0.8rem] md:text-[1rem]">Previous</div>
+              </div>
+              <div className="w-[50%] md:w-[30%]">
+                <Input.Group
+                  compact
+                  size="small"
+                  style={{
+                    display: "flex",
+                    borderRadius: "50px",
+                    overflow: "hidden",
+                    border: "1px solid #d9d9d9",
+                  }}
+                >
+                  <Input
+                    style={{
+                      width: "30px",
+                      border: "none",
+                      textAlign: "center",
+                    }}
+                    prefix={<Image src={SearchIconUrl} alt="search" />}
+                    disabled
+                  />
+                  <Select
+                    style={{ width: "calc(100% - 30px)", border: "none" }}
+                    placeholder="Search by Company"
+                    suffixIcon={<Image src={DownIconUrl} alt="down" />}
+                    bordered={false}
+                    dropdownStyle={{ borderRadius: "10px" }}
+                    onSelect={(value) => {
+                      setCurrentIndex(parseInt(value));
+                    }}
+                  >
+                    {records.map((record) => {
+                      return (
+                        <Option key={record?.index} value={record?.index}>
+                          {record.company}
+                        </Option>
+                      );
+                    })}
+                  </Select>
+                </Input.Group>
+              </div>
+              <div
+                className="flex items-center gap-2 cursor-pointer"
+                onClick={handleNext}
+              >
+                <div className="text-[0.8rem] md:text-[1rem]">Next</div>
+                <Image
+                  src={NextIconUrl}
+                  alt="next"
+                  className="w-[0.8rem] md:w-[1.2rem]"
+                />
               </div>
             </div>
+          </Col>
+          {[
+            {
+              label: "First Name",
+              value: records[currentIndex]?.f_name,
+              IconUrl: PersonIconUrl,
+            },
+            {
+              label: "Last Name",
+              value: records[currentIndex]?.l_name,
+              IconUrl: PersonIconUrl,
+            },
+            {
+              label: "Company",
+              value: records[currentIndex]?.company,
+              IconUrl: CompanyIconUrl,
+            },
+            {
+              label: "Title",
+              value: records[currentIndex]?.title,
+              IconUrl: TitleIconUrl,
+            },
+            {
+              label: "Phone",
+              value: records[currentIndex]?.phone,
+              IconUrl: PhoneIconUrl,
+            },
+            {
+              label: "Email",
+              value: records[currentIndex]?.email,
+              IconUrl: EmailIconUrl,
+            },
+            {
+              label: "Location",
+              value: records[currentIndex]?.location,
+              IconUrl: LocationIconUrl,
+            },
+            {
+              label: "Campaign.S",
+              value: records[currentIndex]?.s_no,
+              IconUrl: CampaignIconUrl,
+            },
+          ].map(({ label, value, IconUrl }) => {
+            return (
+              <Col span={24} md={12}>
+                <div className="">
+                  <div className="flex gap-2 items-center">
+                    <Image src={IconUrl} alt="" />
+                    <div>{label}</div>
+                  </div>
+                  <Input
+                    style={{
+                      border: "none",
+                      cursor: "auto",
+                      paddingLeft: "1.5rem",
+                      marginTop: "0.5rem",
+                      borderRadius: "0",
+                    }}
+                    value={value}
+                    disabled
+                  />
+                </div>
+              </Col>
+            );
+          })}
+        </Row>
+      </div>
+    );
+  };
 
-            <div className="xl:w-2/12">
-              <ConnectCCP phoneNum={records[currentIndex]?.phone} />
-              <div className="flex justify-between mb-5">
-                <div className="flex items-center gap-2">
-                  <button
-                    className="bg-[#9B65FE] p-2 rounded-full flex items-center justify-center"
-                    onClick={handlePrev}
-                    disabled={currentIndex === 0}
-                  >
-                    <svg
-                      width="19"
-                      height="24"
-                      viewBox="0 0 19 24"
-                      fill="none"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <path
-                        d="M0.730324 5.18003L4.37257 0.861542C4.83919 0.308548 5.46783 -9.91821e-05 6.12672 -9.91821e-05L15.7227 -9.91821e-05C17.0945 -9.91821e-05 18.207 1.32451 18.207 2.95777L18.207 20.1134C18.207 21.7467 17.0945 23.0713 15.7227 23.0713L2.48448 23.0713C1.1127 23.0713 0.000148773 21.7467 0.000148773 20.1134V7.27626C-0.00201225 6.48921 0.261541 5.7356 0.730324 5.18003Z"
-                        fill="#5236FF"
-                      />
-                      <path
-                        d="M1.79289 11.2924C1.40237 11.6829 1.40237 12.3161 1.79289 12.7066L8.15685 19.0706C8.54738 19.4611 9.18054 19.4611 9.57107 19.0706C9.96159 18.6801 9.96159 18.0469 9.57107 17.6564L3.91421 11.9995L9.57107 6.34266C9.96159 5.95213 9.96159 5.31897 9.57107 4.92844C9.18054 4.53792 8.54738 4.53792 8.15685 4.92844L1.79289 11.2924ZM16.5 10.9995L2.5 10.9995V12.9995L16.5 12.9995V10.9995Z"
-                        fill="white"
-                      />
-                    </svg>
-                  </button>
-                  <p className="text-[12px]">Previous</p>
-                </div>
-                <div className="flex items-center gap-2">
-                  <button
-                    className="bg-[#9B65FE] p-2 rounded-full flex items-center justify-center"
-                    onClick={handleNext}
-                    disabled={currentIndex === records.length - 1}
-                  >
-                    <svg
-                      width="19"
-                      height="24"
-                      viewBox="0 0 19 24"
-                      fill="none"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <path
-                        d="M17.4767 17.8913L13.8345 22.2097C13.3678 22.7627 12.7392 23.0714 12.0803 23.0714H2.48433C1.11255 23.0714 0 21.7468 0 20.1135V2.95787C0 1.32461 1.11255 0 2.48433 0H15.7226C17.0943 0 18.2069 1.32461 18.2069 2.95787V15.795C18.209 16.5821 17.9455 17.3357 17.4767 17.8913Z"
-                        fill="#5236FF"
-                      />
-                      <path
-                        d="M15.2071 12.7071C15.5976 12.3166 15.5976 11.6834 15.2071 11.2929L8.84315 4.92893C8.45262 4.53841 7.81946 4.53841 7.42893 4.92893C7.03841 5.31946 7.03841 5.95262 7.42893 6.34315L13.0858 12L7.42893 17.6569C7.03841 18.0474 7.03841 18.6805 7.42893 19.0711C7.81946 19.4616 8.45262 19.4616 8.84315 19.0711L15.2071 12.7071ZM0.5 13L14.5 13V11L0.5 11L0.5 13Z"
-                        fill="white"
-                      />
-                    </svg>
-                  </button>
-                  <p className="text-[12px]">Next</p>
-                </div>
+  const getItems: () => CollapseProps["items"] = () => {
+    const CollapseItems = call_script.map(({ uuid, title, body }) => {
+      return {
+        key: `${uuid}`,
+        label: (
+          <div className="text-xl md:text-2xl font-medium w-100">{title}</div>
+        ),
+        children: (
+          <div className=" flex flex-col gap-4 items-center w-[100%]">
+            <div className="text-sm md:text-base">{body}</div>
+            <div className="flex items-center justify-between w-[90%] md:w-[80%]  align-center">
+              <div className="flex gap-4 md:gap-6">
+                <Image
+                  src={LikeOutlinedIconUrl}
+                  alt="like"
+                  className="w-[0.9rem] md:w-[1.1rem]"
+                />
+                <Image
+                  src={DislikeOutlinedIconUrl}
+                  alt="dislike"
+                  className="w-[0.9rem] md:w-[1.1rem]"
+                />
               </div>
-
-              <select
-                onChange={(e) => setCurrentIndex(parseInt(e.target.value))}
-                className="border border-black p-2 rounded-full"
+              <div className="w-[40%] md:w-[50%]">
+                <input
+                  placeholder="Comments"
+                  className="border-2 border-[#000000] rounded-full pl-3 w-[100%] pt-1 pb-1"
+                />
+              </div>
+              <Button
+                type="primary"
+                shape="round"
+                className="text-base md:text-lg lg:text-xl px-4 md:px-6 lg:px-8"
               >
-                <option value={currentIndex}>Search By Company</option>
-                {records.map((record) => (
-                  <option key={record.index} value={record.index}>
-                    {record.company}
-                  </option>
-                ))}
-              </select>
+                Submit
+              </Button>
             </div>
           </div>
-        </div>
+        ),
+        style: { width: "100%", backgroundColor: "inherit" },
+      };
+    });
+    return CollapseItems;
+  };
 
-        <div className="bg-[#F9F9F9] mt-20">
-          <p className="text-4xl">Call Script</p>
-          <hr />
-          <br />
-
-          {call_script.map((item) => (
-            <div key={item.uuid}>
-              <Accordion title={item.title} body={item.body} uuid={item.uuid} />
-            </div>
-          ))}
+  const RenderCallScript = () => {
+    return (
+      <div className="flex flex-col gap-8 items-center mt-[3%] ml-[5%] md:ml-[10%] mr-[5%] md:mr-[10%]">
+        <div className="text-2xl md:text-3xl font-semibold">Call Script</div>
+        <div className="w-[100%] border-2 rounded shadow-md">
+          <Collapse
+            bordered={false}
+            defaultActiveKey={["1"]}
+            expandIcon={({ isActive }) => (
+              <Image
+                src={PlusExpandIconUrl}
+                alt="expand"
+                className="w-[0.9rem] md:w-[1.2rem]"
+              />
+            )}
+            expandIconPosition="end"
+            style={{ padding: "1rem", width: "100%" }}
+            items={getItems()}
+            collapsible={"icon"}
+            ghost={true}
+          />
         </div>
       </div>
+    );
+  };
 
-      <div className="p-10">
-        <div className="max-w-screen-lg mx-auto">
-          <p className="text-4xl text-center mb-5">
-            Frequently Asked Questions
-          </p>
-          <div className="flex bg-[#F9F9F9] gap-5 flex-wrap p-10 justify-normal  lg:justify-center">
-            <div className="w-full lg:w-3/12 flex justify-center ">
-              <button
-                className="w-full py-10  bg-slate-300 rounded-lg px-4"
+  const RenderCallHistory = () => {
+    return (
+      <>
+        <CallLogs/>
+      </>
+    );
+  };
+
+  const RenderFAQ = () => {
+    return (
+      <div className="mt-[4%] mx-[5%] md:mx-[10%] flex flex-col items-center gap-6 text-4xl font-semibold">
+        <AntDModal
+          centered={true}
+          title={"FAQ"}
+          open={openFAQModal}
+          onCancel={() => {
+            setOpenFAQModal(false);
+          }}
+          footer={null}
+        >
+          <div>{`${selectedFaq?.q ?? "Question"}?`}</div>
+          <div>{`${selectedFaq?.a ?? "Answer"}.`}</div>
+        </AntDModal>
+        <div>Frequently Asked Questions</div>
+        <div className="w-[90%] border p-6 shadow-sm rounded">
+          <Row gutter={[32, 48]}>
+            <Col span={8}>
+              <div
                 onClick={() =>
                   viewHandler({
                     a: records[currentIndex]?.a1,
                     q: records[currentIndex]?.q1,
                   })
                 }
-              >
-                {records[currentIndex]?.q1}
-              </button>
-            </div>
-
-            <div className="w-full lg:w-3/12 flex justify-center ">
-              <button
-                className="w-full py-10  bg-slate-300 rounded-lg px-4"
+                className="w-100% bg-[#BAE4F1] rounded-xl h-[3rem] cursor-pointer"
+              ></div>
+            </Col>
+            <Col span={8}>
+              <div
                 onClick={() =>
                   viewHandler({
                     a: records[currentIndex]?.a2,
                     q: records[currentIndex]?.q2,
                   })
                 }
-              >
-                {records[currentIndex]?.q2}
-              </button>
-            </div>
-
-            <div className="w-full lg:w-3/12 flex justify-center ">
-              <button
-                className="w-full py-10  bg-slate-300 rounded-lg px-4"
+                className="w-100% bg-[#BAE4F1] rounded-xl h-[3rem] cursor-pointer"
+              ></div>
+            </Col>
+            <Col span={8}>
+              <div
                 onClick={() =>
                   viewHandler({
                     a: records[currentIndex]?.a3,
                     q: records[currentIndex]?.q3,
                   })
                 }
-              >
-                {records[currentIndex]?.q3}
-              </button>
-            </div>
-
-            <div className="w-full lg:w-3/12 flex justify-center ">
-              <button
-                className="w-full py-10  bg-slate-300 rounded-lg px-4"
+                className="w-100% bg-[#BAE4F1] rounded-xl h-[3rem] cursor-pointer"
+              ></div>
+            </Col>
+            <Col span={8}>
+              <div
                 onClick={() =>
                   viewHandler({
                     a: records[currentIndex]?.a4,
                     q: records[currentIndex]?.q4,
                   })
                 }
-              >
-                {records[currentIndex]?.q4}
-              </button>
-            </div>
-
-            <div className="w-full lg:w-3/12 flex justify-center ">
-              <button
-                className="w-full py-10  bg-slate-300 rounded-lg px-4"
+                className="w-100% bg-[#BAE4F1] rounded-xl h-[3rem] cursor-pointer"
+              ></div>
+            </Col>
+            <Col span={8}>
+              <div
                 onClick={() =>
                   viewHandler({
                     a: records[currentIndex]?.a5,
                     q: records[currentIndex]?.q5,
                   })
                 }
-              >
-                {records[currentIndex]?.q5}
-              </button>
-            </div>
-
-            <div className="w-full lg:w-3/12 flex justify-center ">
-              <button
-                className="w-full py-10  bg-slate-300 rounded-lg px-4"
+                className="w-100% bg-[#BAE4F1] rounded-xl h-[3rem] cursor-pointer"
+              ></div>
+            </Col>
+            <Col span={8}>
+              <div
                 onClick={() =>
                   viewHandler({
                     a: records[currentIndex]?.a6,
                     q: records[currentIndex]?.q6,
                   })
                 }
-              >
-                {records[currentIndex]?.q6}
-              </button>
-            </div>
-          </div>
+                className="w-100% bg-[#BAE4F1] rounded-xl h-[3rem] cursor-pointer"
+              ></div>
+            </Col>
+          </Row>
         </div>
       </div>
+    );
+  };
 
-      <section>
-        <div className=" p-20">
-          <div className="max-w-screen-lg mx-auto">
-            <p className="text-4xl text-center mb-20">Notepad</p>
-            <div className="flex flex-wrap items-stretch justify-between">
-              <div className="w-full lg:w-5/12 mb-20">
-                <div className="flex items-center mb-4">
-                  <div>
-                    <input
-                      id="default-checkbox-1"
-                      type="checkbox"
-                      value="Prospect title in-correct"
-                      className="w-12 h-12 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
-                      checked={a1}
-                      onChange={(e) => setA1(e.target.checked)}
-                    />
-                  </div>
-                  <label
-                    htmlFor="default-checkbox-1"
-                    className="ms-4 text-2xl font-medium text-gray-900 "
-                  >
-                    Prospect title in-correct
-                  </label>
-                </div>
-
-                <div className="flex items-center mb-4">
-                  <div>
-                    <input
-                      id="default-checkbox-2"
-                      type="checkbox"
-                      value="Prospect phone number wrong"
-                      className="w-12 h-12 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
-                      checked={a2}
-                      onChange={(e) => setA2(e.target.checked)}
-                    />
-                  </div>
-                  <label
-                    htmlFor="default-checkbox-2"
-                    className="ms-4 text-2xl font-medium text-gray-900 "
-                  >
-                    Prospect phone number wrong
-                  </label>
-                </div>
-
-                <div className="flex items-center mb-4">
-                  <div>
-                    <input
-                      id="default-checkbox-3"
-                      type="checkbox"
-                      value="Prospect didn’t answer"
-                      className="w-12 h-12 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
-                      checked={a3}
-                      onChange={(e) => setA3(e.target.checked)}
-                    />
-                  </div>
-                  <label
-                    htmlFor="default-checkbox-3"
-                    className="ms-4 text-2xl font-medium text-gray-900 "
-                  >
-                    Prospect didn’t answer
-                  </label>
-                </div>
-              </div>
-              <div className="w-full lg:w-5/12">
-                <div className="flex flex-col gap-5">
-                  <p className="text-2xl">Call Note</p>
-                  <textarea
-                    value={note}
-                    onChange={(e) => setNote(e.target.value)}
-                    rows={10}
-                    cols={20}
-                    className="w-full  border-2 border-gray-700 p-4"
-                  ></textarea>
-                  <button
-                    onClick={saveButtonHandler}
-                    className="py-5 px-10 bg-[#5236FF] hover:bg-[#422ae0] text-white text-2xl rounded-full"
-                  >
-                    Submit
-                  </button>
-                </div>
-              </div>
+  const RenderCallNotes = () => {
+    return (
+      <div className="mt-[3%] mx-[5%] md:mx-[15%] flex flex-col items-center gap-8">
+        <div className="text-4xl font-semibold">Your Call notes</div>
+        <div className="flex items-center justify-between gap-10">
+          <div
+            onClick={() => setA1((prev) => !prev)}
+            className="flex items-center gap-2 cursor-pointer"
+          >
+            <div className="w-[2rem] border-2 rounded-full">
+              <Image src={a1 ? TickIconUrl : TickIconWhiteBG} alt="tick" />
             </div>
+            <div>title in-correct</div>
+          </div>
+          <div
+            onClick={() => setA2((prev) => !prev)}
+            className="flex items-center gap-2 cursor-pointer"
+          >
+            <div className="w-[2rem] border-2 rounded-full">
+              <Image src={a2 ? TickIconUrl : TickIconWhiteBG} alt="tick" />
+            </div>
+            <div>Prospect phone number wrong</div>
+          </div>
+          <div
+            onClick={() => setA3((prev) => !prev)}
+            className="flex items-center gap-2 cursor-pointer"
+          >
+            <div className="w-[2rem] border-2 rounded-full">
+              <Image src={a3 ? TickIconUrl : TickIconWhiteBG} alt="tick" />
+            </div>
+            <div>Prospect didn’t answer</div>
           </div>
         </div>
-      </section>
-
-      <hr className="border-gray-300" />
-
-      <section className="py-20">
-        <div className="max-w-screen-xl mx-auto px-20">
-          <p className="text-[25px]">
-            For any selling-side questions use this chat bot
-          </p>
-          <div className="bg-[#5236FF] p-4 rounded-lg mt-5">
-            <p className="text-3xl text-white">Ask Sell-side Queries</p>
-            <AiChat />
-          </div>
+        <div className="w-[70%]">
+          <TextArea
+            value={note}
+            onChange={(e) => {
+              e.preventDefault();
+              setNote(e.target.value);
+            }}
+            placeholder="Call Note"
+            autoSize={{ minRows: 8 }}
+          />
         </div>
-      </section>
-
-      <section className="py-20">
-        <div className="max-w-screen-xl mx-auto px-20">
-          <p className="text-[25px]">
-            For any general questions use this chat bot
-          </p>
-          <p>
-            (Note: this bot can answer general questions too, but can be less
-            reliable sometimes. So double check responses)
-          </p>
-          <div className="bg-[#5236FF] p-4 rounded-lg mt-5">
-            <p className="text-3xl text-white">AI Co-pilot</p>
-            <AiChat />
-          </div>
+        <div>
+          <Button
+            onClick={saveButtonHandler}
+            type="primary"
+            shape="round"
+            className="p-5"
+          >
+            Submit
+          </Button>
         </div>
-      </section>
+      </div>
+    );
+  };
 
-      {selectedFaq && (
-        <Modal open={openModal} onClose={() => setOpenModal(false)}>
-          <p className="mb-5">{selectedFaq.q}</p>
-          <div className="space-y-6">
-            <p className="text-base leading-relaxed text-gray-500 dark:text-gray-400">
-              {selectedFaq.a}
-            </p>
+  const RenderProductServiceQN = () => {
+    return (
+      <div className="mt-10 mx-[5%] md:mx-[15%] flex flex-col gap-4 items-center">
+        <div className="text-4xl font-semibold">
+          Ask Product/Services Question
+        </div>
+        <div className="font-medium">
+          Ask any question about what we are seeling
+        </div>
+        <AiChat />
+      </div>
+    );
+  };
+
+  const RenderQNSection = () => {
+    return (
+      <div className="mt-10 mx-[5%] md:mx-[15%] flex flex-col gap-4 items-center">
+        <div className="text-4xl font-semibold">Ask Anything</div>
+        <div className="font-medium">General Q&A</div>
+        <AiChat />
+      </div>
+    );
+  };
+
+  return (
+    <div className="mt-[10%] md:mt-[5%]">
+      <div className=" flex flex-col items-center">
+        <div className="flex flex-col items-center py-10">
+          <div className="text-xl sm:text-2xl md:text-3xl lg:text-4xl mb-2 font-semibold text-center">
+            Caller Dashboard
           </div>
-        </Modal>
-      )}
-    </>
+          <p className="text-[0.7rem] md:text-[1rem] font-medium text-center">
+            All you need to create call magic
+          </p>
+        </div>
+
+        {RenderInfoTable()}
+
+        <ConnectCCP phoneNum={records[currentIndex]?.phone} />
+      </div>
+      {RenderCallScript()}
+      {RenderCallHistory()}
+      {RenderFAQ()}
+      {RenderCallNotes()}
+      {RenderProductServiceQN()}
+      {RenderQNSection()}
+    </div>
   );
 };
 
