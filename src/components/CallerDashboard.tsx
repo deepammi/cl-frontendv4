@@ -38,6 +38,7 @@ import PlusExpandIconUrl from "@Image/PlusExpandIcon.svg";
 import LikeOutlinedIconUrl from "@Image/LikeOutlineIcon.svg";
 import DislikeOutlinedIconUrl from "@Image/DislikeOutlinedIcon.svg";
 import TickIconUrl from "@Image/TickIconBlueBG.svg";
+import TickIconWhiteBG from "@Image/TickIconWhiteBG.svg";
 type Props = {
   records: any[];
 };
@@ -583,24 +584,52 @@ const CallerDashboard = ({ records }: Props) => {
       <div className="mt-[3%] mx-[5%] md:mx-[15%] flex flex-col items-center gap-8">
         <div className="text-4xl font-semibold">Your Call notes</div>
         <div className="flex items-center justify-between gap-10">
-          <div className="flex items-center gap-2">
-            <Image src={TickIconUrl} alt="tick" />
-            <div>Prospect title in-correct</div>
+          <div
+            onClick={() => setA1((prev) => !prev)}
+            className="flex items-center gap-2 cursor-pointer"
+          >
+            <div className="w-[2rem] border-2 rounded-full">
+              <Image src={a1 ? TickIconUrl : TickIconWhiteBG} alt="tick" />
+            </div>
+            <div>title in-correct</div>
           </div>
-          <div className="flex items-center gap-2">
-            <Image src={TickIconUrl} alt="tick" />
+          <div
+            onClick={() => setA2((prev) => !prev)}
+            className="flex items-center gap-2 cursor-pointer"
+          >
+            <div className="w-[2rem] border-2 rounded-full">
+              <Image src={a2 ? TickIconUrl : TickIconWhiteBG} alt="tick" />
+            </div>
             <div>Prospect phone number wrong</div>
           </div>
-          <div className="flex items-center gap-2">
-            <Image src={TickIconUrl} alt="tick" />
+          <div
+            onClick={() => setA3((prev) => !prev)}
+            className="flex items-center gap-2 cursor-pointer"
+          >
+            <div className="w-[2rem] border-2 rounded-full">
+              <Image src={a3 ? TickIconUrl : TickIconWhiteBG} alt="tick" />
+            </div>
             <div>Prospect didn’t answer</div>
           </div>
         </div>
         <div className="w-[70%]">
-          <TextArea placeholder="Call Note" autoSize={{ minRows: 8 }} />
+          <TextArea
+            value={note}
+            onChange={(e) => {
+              e.preventDefault();
+              setNote(e.target.value);
+            }}
+            placeholder="Call Note"
+            autoSize={{ minRows: 8 }}
+          />
         </div>
         <div>
-          <Button type="primary" shape="round" className="p-5">
+          <Button
+            onClick={saveButtonHandler}
+            type="primary"
+            shape="round"
+            className="p-5"
+          >
             Submit
           </Button>
         </div>
@@ -697,92 +726,6 @@ const CallerDashboard = ({ records }: Props) => {
       {RenderCallNotes()}
       {RenderProductServiceQN()}
       {RenderQNSection()}
-
-      {/* <section>
-        <div className=" p-20">
-          <div className="max-w-screen-lg mx-auto">
-            <p className="text-4xl text-center mb-20">Notepad</p>
-            <div className="flex flex-wrap items-stretch justify-between">
-              <div className="w-full lg:w-5/12 mb-20">
-                <div className="flex items-center mb-4">
-                  <div>
-                    <input
-                      id="default-checkbox-1"
-                      type="checkbox"
-                      value="Prospect title in-correct"
-                      className="w-12 h-12 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
-                      checked={a1}
-                      onChange={(e) => setA1(e.target.checked)}
-                    />
-                  </div>
-                  <label
-                    htmlFor="default-checkbox-1"
-                    className="ms-4 text-2xl font-medium text-gray-900 "
-                  >
-                    Prospect title in-correct
-                  </label>
-                </div>
-
-                <div className="flex items-center mb-4">
-                  <div>
-                    <input
-                      id="default-checkbox-2"
-                      type="checkbox"
-                      value="Prospect phone number wrong"
-                      className="w-12 h-12 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
-                      checked={a2}
-                      onChange={(e) => setA2(e.target.checked)}
-                    />
-                  </div>
-                  <label
-                    htmlFor="default-checkbox-2"
-                    className="ms-4 text-2xl font-medium text-gray-900 "
-                  >
-                    Prospect phone number wrong
-                  </label>
-                </div>
-
-                <div className="flex items-center mb-4">
-                  <div>
-                    <input
-                      id="default-checkbox-3"
-                      type="checkbox"
-                      value="Prospect didn’t answer"
-                      className="w-12 h-12 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
-                      checked={a3}
-                      onChange={(e) => setA3(e.target.checked)}
-                    />
-                  </div>
-                  <label
-                    htmlFor="default-checkbox-3"
-                    className="ms-4 text-2xl font-medium text-gray-900 "
-                  >
-                    Prospect didn’t answer
-                  </label>
-                </div>
-              </div>
-              <div className="w-full lg:w-5/12">
-                <div className="flex flex-col gap-5">
-                  <p className="text-2xl">Call Note</p>
-                  <textarea
-                    value={note}
-                    onChange={(e) => setNote(e.target.value)}
-                    rows={10}
-                    cols={20}
-                    className="w-full  border-2 border-gray-700 p-4"
-                  ></textarea>
-                  <button
-                    onClick={saveButtonHandler}
-                    className="py-5 px-10 bg-[#5236FF] hover:bg-[#422ae0] text-white text-2xl rounded-full"
-                  >
-                    Submit
-                  </button>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section> */}
       {/*
       <hr className="border-gray-300" /> */}
 
