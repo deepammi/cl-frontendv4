@@ -4,17 +4,18 @@ import ArticleCard from "@/components/ArticleCard/Index";
 import ArticleImgUrl1 from "@Image/ArticleImage1.svg";
 import ArticleImgUrl2 from "@Image/ArticleImage2.svg";
 import ArticleImgUrl3 from "@Image/ArticleImage3.svg";
+import { fourthSectionText } from "@/config/LendingPageText";
 
 export default function ArticleSection() {
   return (
     <div className="flex flex-col items-center gap-8 pl-[10%] pl-[10%] pt-[5%] pb-[5%]">
       <div className="text-[1.8rem] md:text-[2.5rem] font-bold text-[#4B5264]">
-        Most Popular Article
+        {fourthSectionText.title}
       </div>
       <div className="flex justify-between gap-2 md:gap-4">
-        <Button className="!bg-[#737EEF] !text-[white] !text-[0.5rem] md:!text-[0.9rem]">{`01. Upload Campaign`}</Button>
-        <Button className="!text-[0.5rem] md:!text-[0.9rem]">{`02. Ai Automates Presales`}</Button>
-        <Button className="!text-[0.5rem] md:!text-[0.9rem]">{`03. Instant Result`}</Button>
+        <Button className="!bg-[#737EEF] !text-[white] !text-[0.5rem] md:!text-[0.9rem]">{fourthSectionText.button1Text}</Button>
+        <Button className="!text-[0.5rem] md:!text-[0.9rem]">{fourthSectionText.button2Text}</Button>
+        <Button className="!text-[0.5rem] md:!text-[0.9rem]">{fourthSectionText.button3Text}</Button>
       </div>
       <Row justify={"space-around"} gutter={[32, 32]}>
         <Col span={24} md={8} style={{}}>

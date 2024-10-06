@@ -35,6 +35,14 @@ import DislikeOutlinedIconUrl from "@Image/DislikeOutlinedIcon.svg";
 import TickIconUrl from "@Image/TickIconBlueBG.svg";
 import TickIconWhiteBG from "@Image/TickIconWhiteBG.svg";
 import CallLogs from "./CallLogs";
+import {
+  fifthSectionText,
+  firstSectionText,
+  fourthSectionText,
+  secondSectionText,
+  seventhSectionText,
+  sixthSectionText,
+} from "@/config/CallerDahsboardPageText";
 
 type Props = {
   records: any[];
@@ -340,7 +348,9 @@ const CallerDashboard = ({ records }: Props) => {
   const RenderCallScript = () => {
     return (
       <div className="flex flex-col gap-8 items-center mt-[3%] ml-[5%] md:ml-[10%] mr-[5%] md:mr-[10%]">
-        <div className="text-2xl md:text-3xl font-semibold">Call Script</div>
+        <div className="text-2xl md:text-3xl font-semibold">
+          {secondSectionText.title}
+        </div>
         <div className="w-[100%] border-2 rounded shadow-md">
           <Collapse
             bordered={false}
@@ -366,7 +376,7 @@ const CallerDashboard = ({ records }: Props) => {
   const RenderCallHistory = () => {
     return (
       <>
-        <CallLogs/>
+        <CallLogs />
       </>
     );
   };
@@ -386,7 +396,7 @@ const CallerDashboard = ({ records }: Props) => {
           <div>{`${selectedFaq?.q ?? "Question"}?`}</div>
           <div>{`${selectedFaq?.a ?? "Answer"}.`}</div>
         </AntDModal>
-        <div>Frequently Asked Questions</div>
+        <div>{fourthSectionText.title}</div>
         <div className="w-[90%] border p-6 shadow-sm rounded">
           <Row gutter={[32, 48]}>
             <Col span={8}>
@@ -464,7 +474,7 @@ const CallerDashboard = ({ records }: Props) => {
   const RenderCallNotes = () => {
     return (
       <div className="mt-[3%] mx-[5%] md:mx-[15%] flex flex-col items-center gap-8">
-        <div className="text-4xl font-semibold">Your Call notes</div>
+        <div className="text-4xl font-semibold">{fifthSectionText.title}</div>
         <div className="flex items-center justify-between gap-10">
           <div
             onClick={() => setA1((prev) => !prev)}
@@ -473,7 +483,7 @@ const CallerDashboard = ({ records }: Props) => {
             <div className="w-[2rem] border-2 rounded-full">
               <Image src={a1 ? TickIconUrl : TickIconWhiteBG} alt="tick" />
             </div>
-            <div>title in-correct</div>
+            <div>{fifthSectionText.check1text}</div>
           </div>
           <div
             onClick={() => setA2((prev) => !prev)}
@@ -482,7 +492,7 @@ const CallerDashboard = ({ records }: Props) => {
             <div className="w-[2rem] border-2 rounded-full">
               <Image src={a2 ? TickIconUrl : TickIconWhiteBG} alt="tick" />
             </div>
-            <div>Prospect phone number wrong</div>
+            <div>{fifthSectionText.check2text}</div>
           </div>
           <div
             onClick={() => setA3((prev) => !prev)}
@@ -491,7 +501,7 @@ const CallerDashboard = ({ records }: Props) => {
             <div className="w-[2rem] border-2 rounded-full">
               <Image src={a3 ? TickIconUrl : TickIconWhiteBG} alt="tick" />
             </div>
-            <div>Prospect didn’t answer</div>
+            <div>{fifthSectionText.check3text}</div>
           </div>
         </div>
         <div className="w-[70%]">
@@ -522,12 +532,8 @@ const CallerDashboard = ({ records }: Props) => {
   const RenderProductServiceQN = () => {
     return (
       <div className="mt-10 mx-[5%] md:mx-[15%] flex flex-col gap-4 items-center">
-        <div className="text-4xl font-semibold">
-          Ask Product/Services Question
-        </div>
-        <div className="font-medium">
-          Ask any question about what we are seeling
-        </div>
+        <div className="text-4xl font-semibold">{sixthSectionText.title}</div>
+        <div className="font-medium">{sixthSectionText.subTitle}</div>
         <AiChat />
       </div>
     );
@@ -536,8 +542,8 @@ const CallerDashboard = ({ records }: Props) => {
   const RenderQNSection = () => {
     return (
       <div className="mt-10 mx-[5%] md:mx-[15%] flex flex-col gap-4 items-center">
-        <div className="text-4xl font-semibold">Ask Anything</div>
-        <div className="font-medium">General Q&A</div>
+        <div className="text-4xl font-semibold">{seventhSectionText.title}</div>
+        <div className="font-medium">{seventhSectionText.subTitle}</div>
         <AiChat />
       </div>
     );
@@ -548,10 +554,10 @@ const CallerDashboard = ({ records }: Props) => {
       <div className=" flex flex-col items-center">
         <div className="flex flex-col items-center py-10">
           <div className="text-xl sm:text-2xl md:text-3xl lg:text-4xl mb-2 font-semibold text-center">
-            Caller Dashboard
+            {firstSectionText.title}
           </div>
           <p className="text-[0.7rem] md:text-[1rem] font-medium text-center">
-            All you need to create call magic
+            {firstSectionText.subTitle}
           </p>
         </div>
 

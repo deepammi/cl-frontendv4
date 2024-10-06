@@ -3,6 +3,7 @@
 import apiResources from "../APIResources";
 import { useEffect, useState } from "react";
 import { Button, Modal, Table } from "antd";
+import { thirdSectionText } from "@/config/CallerDahsboardPageText";
 
 export const getServerSideProps = async () => {
   // Load initial table
@@ -201,7 +202,7 @@ export default function CallLogs({
         )}
       </Modal>
       <div className="w-100%] flex flex-col gap-8 items-center mt-[3%]">
-        <div className="text-2xl md:text-3xl font-semibold">Call History</div>
+        <div className="text-2xl md:text-3xl font-semibold">{thirdSectionText.title}</div>
         <div className="flex gap-4 md:gap-10">
           <Button
             type="primary"
@@ -209,7 +210,7 @@ export default function CallLogs({
             size="small"
             onClick={fetchRecordings}
           >
-            Fetch Call History
+            {thirdSectionText.button1Text}
           </Button>
           <Button
             type="primary"
@@ -217,7 +218,7 @@ export default function CallLogs({
             size="small"
             onClick={fetchCallLogs}
           >
-            Fetch Call Details
+            {thirdSectionText.button2Text}
           </Button>
         </div>
         <div className="px-[5%] md:px-[15%]">

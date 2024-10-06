@@ -7,12 +7,13 @@ import IntroImageUrl2 from "@Image/IntroImg2.svg";
 import IntroImageUrl3 from "@Image/IntroImg3.svg";
 import IntroImageUrl4 from "@Image/IntroImg4.svg";
 import IntroImageUrl5 from "@Image/IntroImg5.svg";
+import { fifthSectionText } from "@/config/LendingPageText";
 
 export default function HowItWork() {
   return (
     <div className="flex flex-col items-center p-[3%] gap-8">
       <div className="text-[1.5rem] md:text-[2rem] font-bold text-[#4B5264]">
-        How it Works
+        {fifthSectionText.title}
       </div>
       <Row justify={"space-around"} gutter={[16, 32]}>
         <Col span={12} style={{}}>

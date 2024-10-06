@@ -18,6 +18,7 @@ import Footer from "@/components/Footer/index";
 import EaseOfUse from "@/components/LandingPageSection/EaseOfUse/index";
 import ArticleSection from "@/components/LandingPageSection/ArticleSection/indes";
 import QuickStartImgUrl from "@Image/QuickStartImg.svg";
+import { firstSectionText, secondSectionText } from "@/config/LendingPageText";
 
 export default function Home() {
   return (
@@ -27,12 +28,10 @@ export default function Home() {
           <Navbar />
           <div className="pt-[70%] md:pt-[15%] pl-[10%] w-[60%] md:w-[40%] text-black">
             <div className="text-[2rem] md:text-[3.5rem] font-extrabold text-left md:text-center text-[#030C1B] w-[80%]">
-              Automate Your PreSales
+              {firstSectionText.Title}
             </div>
             <div className="text-[0.6rem] md:text-[1rem] leading-normal font-normal mt-[5%] text-[#364050]">
-              TBI provides AI software that automates the manual task of making
-              sales calls to business customers. World’s 1st PreSales Automation
-              Platform for B2B Enterprises
+              {firstSectionText.Description}
             </div>
             <div className="flex gap-[3%] mt-[8%]">
               <Button
@@ -40,10 +39,10 @@ export default function Home() {
                 icon={<Image src={playIconUrl} alt="playIcon" />}
                 className="bg-[#F1F6FF] border border-[#e3ecfc]"
               >
-                Watch Video
+                {firstSectionText.DemoVideo}
               </Button>
               <Button size="large" type="primary">
-                Try the demo
+                {firstSectionText.DemoButton}
               </Button>
             </div>
           </div>
@@ -53,30 +52,24 @@ export default function Home() {
           style={{ alignItems: "center" }}
         >
           <h1 className="text-center text-3xl text-[#4B5264] font-bold mb-8">
-            Using Magic of Generative AI to Upend Pre-Sales
+            {secondSectionText.Title}
           </h1>
           <Row gutter={[32, 32]} justify="center">
             <FeatureCard
               ImgUrl={AutomateCallScriptIconUrl}
-              Title={"Automated Call-scripts"}
-              Description={
-                "AI-generated Call Scripts, hyper-customized for each target, including your top sales propositions. Call-scripts are built using real-time Sales Signal alerts and buying propensity insights."
-              }
+              Title={secondSectionText.firstCardTitle}
+              Description={secondSectionText.firstCardDescription}
             />
             {/* Second Card */}
             <FeatureCard
               ImgUrl={HighConversionIonUrl}
-              Title="Higher Conversion At Blazing Speed"
-              Description="Improve sales cycle by 90% lower campaign time. Improve
-                    presales conversions by 50% or more. Higher success creates
-                    empowered & happy callers."
+              Title={secondSectionText.secondCardTitle}
+              Description={secondSectionText.secondCardDescription}
             />
             <FeatureCard
               ImgUrl={AIManagementIconUrl}
-              Title="AI Management Insights"
-              Description="Managers get detailed insights of messaging effectiveness,
-                    employee performance and real-time campaign performance. No
-                    more waiting weeks or months to see campaign outcomes."
+              Title={secondSectionText.thirdCardTitle}
+              Description={secondSectionText.thirdCardDescription}
             />
           </Row>
         </div>
@@ -91,7 +84,9 @@ export default function Home() {
         </div>
         <ArticleSection />
         <HowItWork />
-        <Plans />
+        <section id="pricing">
+          <Plans />
+        </section>
         <Testimonials />
         <EaseOfUse />
         <Trails />
