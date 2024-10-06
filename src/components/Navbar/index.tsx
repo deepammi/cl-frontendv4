@@ -24,6 +24,22 @@ const Navbar = () => {
     if (key === "sign_in") {
       router.push("/login");
     }
+    if (key === "pre_sales_ai") {
+      router.push("/pre-sales-ai");
+    }
+    if (key === "benefit"){
+      router.push("/benefit");
+    }
+    if (key === "easy"){
+      router.push("/easy");
+    }
+    if (key === "blog"){
+      router.push("/blog");
+    }
+    if (key === "visual_design"){
+      router.push("/visual-design");
+    }
+    console.log(key, "k...");
     return;
   };
 

@@ -84,7 +84,9 @@ export default function Home() {
         </div>
         <ArticleSection />
         <HowItWork />
-        <Plans />
+        <section id="pricing">
+          <Plans />
+        </section>
         <Testimonials />
         <EaseOfUse />
         <Trails />

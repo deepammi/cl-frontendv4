@@ -45,7 +45,7 @@ export default function Footer() {
               <Link href={"#"} className="text-inherit">
                 <div>Integrations</div>
               </Link>
-              <Link href={"#"} className="text-inherit">
+              <Link href={"/#pricing"} className="text-inherit">
                 <div>Pricing</div>
               </Link>
               <Link href={"#"} className="text-inherit">
@@ -63,13 +63,13 @@ export default function Footer() {
               Utility Page
             </div>
             <div className="flex flex-col items-center text-center text-[1rem] gap-4 text-[#2E3C51]">
-              <Link href={"#"} className="text-inherit">
+              <Link href={"/profile"} className="text-inherit">
                 <div>My Profile</div>
               </Link>
-              <Link href={"#"} className="text-inherit">
+              <Link href={"/account"} className="text-inherit">
                 <div>Account</div>
               </Link>
-              <Link href={"#"} className="text-inherit">
+              <Link href={"/password-reset"} className="text-inherit">
                 <div>Reset Password</div>
               </Link>
             </div>
