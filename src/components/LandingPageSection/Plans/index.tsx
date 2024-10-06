@@ -3,12 +3,13 @@ import React from "react";
 import TickIconBlueBgUrl from "@Image/TickIconBlueBG.svg";
 import TickIconWhiteBgUrl from "@Image/TickIconWhiteBG.svg";
 import Image from "next/image";
+import { sixthSectionText } from "@/config/LendingPageText";
 
 export default function Plans() {
   return (
     <div className="m-[1%] sm:m-[2%] md:m-[4%] lg:m-[5%] flex flex-col items-center justify-center gap-10">
       <div className="text-[1.5rem] md:text-[2rem] font-bold text-[#4B5264]">
-        Choose your Plan
+        {sixthSectionText.title}
       </div>
       <Row
         gutter={{ xs: 4, sm: 8, md: 16, lg: 32, xl: 64 }}
@@ -18,10 +19,10 @@ export default function Plans() {
           <Card className="shadow rounded-lg" style={{ width: "100%" }}>
             <div className="flex justify-between">
               <div className="font-[700] text-[1rem]">Intro</div>
-              <div className="text-[#2A3349] text-[0.8rem]">Save 30%</div>
+              <div className="text-[#2A3349] text-[0.8rem]">{sixthSectionText.introFeature}</div>
             </div>
             <div className="mt-[0.5rem] text-[#2A3349]">
-              <span className="font-[800] text-[black]">$19</span>/month
+              <span className="font-[800] text-[black]">{sixthSectionText.introPrice}</span>/month
             </div>
             <Divider style={{ backgroundColor: "#C8C7C7" }}/>
             <div className="text-center font-medium">
@@ -57,10 +58,10 @@ export default function Plans() {
           >
             <div className="flex justify-between text-white">
               <div className="font-[700] text-[1rem]">Basic</div>
-              <div className="text-[#fff] text-[0.8rem]">Save 30%</div>
+              <div className="text-[#fff] text-[0.8rem]">{sixthSectionText.baseFeature}</div>
             </div>
             <div className="mt-[0.5rem] text-[#fff]">
-              <span className="font-[800] text-[white]">$19</span>/month
+              <span className="font-[800] text-[white]">{sixthSectionText.basicPrice}</span>/month
             </div>
             <Divider style={{ backgroundColor: "#fff" }} />
             <div className="flex flex-col gap-3 items-center">
@@ -109,10 +110,10 @@ export default function Plans() {
           >
             <div className="flex justify-between">
               <div className="font-[700] text-[1rem]">Advance</div>
-              <div className="text-[#8BB1EE] text-[0.8rem]">Popular</div>
+              <div className="text-[#8BB1EE] text-[0.8rem]">{sixthSectionText.advanceFeature}</div>
             </div>
             <div className="mt-[0.5rem] text-[#000]">
-              <span className="font-[800] text-[black]">$19</span>/month
+              <span className="font-[800] text-[black]">{sixthSectionText.advancePrice}</span>/month
             </div>
             <Divider style={{ backgroundColor: "#C8C7C7" }}/>
             <div className="flex flex-col gap-3 items-center">

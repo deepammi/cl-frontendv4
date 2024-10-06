@@ -1,3 +1,4 @@
+import { secondSectionText } from "@/config/LendingPageText";
 import { Button, Card, Col } from "antd";
 import Image from "next/image";
 import React from "react";
@@ -29,7 +30,7 @@ export default function index({
           </div>
           <div className="flex justify-center">
             <Button shape="round" type="primary" className="mt-4">
-              Learn More
+              {secondSectionText.moreButton}
             </Button>
           </div>
         </div>

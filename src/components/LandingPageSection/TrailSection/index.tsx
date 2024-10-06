@@ -2,6 +2,7 @@ import { Button, Card, Col, Row } from "antd";
 import Image from "next/image";
 import React from "react";
 import TrailImgUrl from "@Image/TrailImg.svg";
+import { ninthSectionText } from "@/config/LendingPageText";
 
 export default function Trails() {
   return (
@@ -10,11 +11,10 @@ export default function Trails() {
         <Col span={24} order={2} md={{ span: 12, order: 1 }}>
           <div className="flex flex-col items-center justify-center text-center mt-[5%] md:mt-[0]">
             <div className="text-[1.6rem] md:text-[2.5rem] font-[700] text-white">
-              Start Your Trial Today{" "}
+              {ninthSectionText.title}
             </div>
             <div className="mt-[5%] text-white text-[0.8rem] md:text-[1rem] w-[80%]">
-              Call us today for a no-commitment pilot. You will see results in
-              days. Guaranteed
+              {ninthSectionText.subTitle}
             </div>
             <div className="mt-[5%] flex gap-4">
               <div

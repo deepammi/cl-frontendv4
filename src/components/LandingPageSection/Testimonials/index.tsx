@@ -4,12 +4,13 @@ import TestimonialCard from "./TestimonialCard";
 import TestimonialImg1 from "@Image/TestmonialImg1.svg";
 import TestimonialImg2 from "@Image/TestmonialImg2.svg";
 import TestimonialImg3 from "@Image/TestmonialImg3.svg";
+import { seventhSectionText } from "@/config/LendingPageText";
 
 export default function Testimonials() {
   return (
     <div className="m-[5%] flex flex-col items-center">
       <div className="text-[1.5rem] md:text-[2rem] font-[600] text-[#4B5264]">
-        Testimonials
+        {seventhSectionText.title}
       </div>
       <div className="text-[0.7rem] md:text-[1rem] text-[#2A3349] mt-[2%]">
         Their <span className="font-medium">Sweet Words</span> for our sincere
