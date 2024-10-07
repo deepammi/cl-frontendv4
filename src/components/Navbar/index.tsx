@@ -62,7 +62,7 @@ const Navbar = () => {
         <div className="flex gap-4 items-center cursor-pointer" onClick={()=>router.push("/")}>
           <Image src={logoIconUrl} alt="logo" width={60} height={60} />
           <Title level={3} style={{ color: "#767BDE", fontWeight: "800" }}>
-            Turigma.ai
+            TBI Corp.
           </Title>
         </div>
         <div className="hidden md:flex" style={{ minWidth: "50%" }}>
@@ -99,7 +99,7 @@ const Navbar = () => {
           </Button>
         </div>
         <Drawer
-          title={"Turigma.ai"}
+          title={"TBI Corp"}
           placement="right"
           closable={true}
           onClose={showDrawer}

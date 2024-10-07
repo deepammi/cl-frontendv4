@@ -12,7 +12,7 @@ export default function Footer() {
         <Col span={24} md={8}>
           <div className="flex flex-col items-center">
             <div className="text-[1.8rem] font-medium text-black mb-[3%]">
-              Turigma.ai
+              TBI Corp
             </div>
             <div className="w-[60%] flex flex-col items-center text-[#2E3C51] text-[1rem] text-center gap-4 font-[450]">
               <div>
@@ -21,7 +21,7 @@ export default function Footer() {
               </div>
               <div className="flex gap-2 items-center">
                 <Image src={mailIconUrl} alt="icon" className="w-[1rem]" />
-                <div>info@turigma.ai</div>
+                <div>info@tbicorp.com</div>
               </div>
               <div className="flex gap-2">
                 <Image src={phoneIconUrl} alt="icon" className="w-[1rem]" />

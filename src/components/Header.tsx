@@ -45,7 +45,7 @@ const Header = ({
           >
             <div className="flex flex-col lg:flex-row items-center">
               <div>
-                <span>Turigma.ai</span>
+                <span>TBI Inc.</span>
               </div>
               {logoImageVisible === undefined && (
                 <Image

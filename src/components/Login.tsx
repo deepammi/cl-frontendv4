@@ -9,7 +9,7 @@ const Login = () => {
           X
         </button>
         <div className="mt-[10%] text-[#868DAC] text-[1.5rem] font-extrabold">
-          Sign in to Turigma.ai
+          Sign in to TBI Corp.
         </div>
         <div className="mt-8 flex gap-4 text-[1.2rem]">
           <Link href={"#"} className="border border-black rounded-full w-8 aspect-square flex items-center justify-center font-black text-[1.2rem]">

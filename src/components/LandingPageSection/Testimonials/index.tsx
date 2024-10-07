@@ -36,7 +36,7 @@ export default function Testimonials() {
           <TestimonialCard
             imgUrl={TestimonialImg2}
             quote={
-              "Outbound PreSales calling used to be a hated task with a lot of manual preparation, frustrating workflows and slow results. Turigma.ai has waved a magic wand for us. The power of generative AI is unbelievable"
+              "Outbound PreSales calling used to be a hated task with a lot of manual preparation, frustrating workflows and slow results. TBI Corp has waved a magic wand for us. The power of generative AI is unbelievable"
             }
             name="James Toriff"
             companyName="PreSales Head"

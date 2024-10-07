@@ -26,7 +26,7 @@ export default function AuthLayout({
                 <Image src={companyLogoUrl} alt="logo" width={40} height={40} />
               </div>
               <div className="text-[1.2rem] font-semibold text-[#767BDE]">
-                Turigma.ai
+                TBI Corp.
               </div>
             </div>
             <div className="mt-[30%] md:mt-[40%] ml-[10%] md:ml-[20%]">
