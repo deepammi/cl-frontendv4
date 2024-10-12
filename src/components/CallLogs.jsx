@@ -226,8 +226,7 @@ export default function CallLogs({
             dataSource={currentEntries}
             columns={columns}
             bordered
-            pagination={false}
-            scroll={{ y: 640 }}
+            pagination={true}
             style={{ backgroundColor: "inherit",tableLayout: 'fixed' }}
           />
         </div>
