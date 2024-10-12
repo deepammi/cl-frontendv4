@@ -208,7 +208,7 @@ const CallerDashboard = ({ records }: Props) => {
                       setCurrentIndex(parseInt(value));
                     }}
                   >
-                    {records.map((record) => {
+                    {records?.map((record) => {
                       return (
                         <Option key={record?.index} value={record?.index}>
                           {record.company}
@@ -234,45 +234,45 @@ const CallerDashboard = ({ records }: Props) => {
           {[
             {
               label: "First Name",
-              value: records[currentIndex]?.f_name,
+              value: records?.[currentIndex]?.f_name,
               IconUrl: PersonIconUrl,
             },
             {
               label: "Last Name",
-              value: records[currentIndex]?.l_name,
+              value: records?.[currentIndex]?.l_name,
               IconUrl: PersonIconUrl,
             },
             {
               label: "Company",
-              value: records[currentIndex]?.company,
+              value: records?.[currentIndex]?.company,
               IconUrl: CompanyIconUrl,
             },
             {
               label: "Title",
-              value: records[currentIndex]?.title,
+              value: records?.[currentIndex]?.title,
               IconUrl: TitleIconUrl,
             },
             {
               label: "Phone",
-              value: records[currentIndex]?.phone,
+              value: records?.[currentIndex]?.phone,
               IconUrl: PhoneIconUrl,
             },
             {
               label: "Email",
-              value: records[currentIndex]?.email,
+              value: records?.[currentIndex]?.email,
               IconUrl: EmailIconUrl,
             },
             {
               label: "Location",
-              value: records[currentIndex]?.location,
+              value: records?.[currentIndex]?.location,
               IconUrl: LocationIconUrl,
             },
             {
               label: "Campaign.S",
-              value: records[currentIndex]?.s_no,
+              value: records?.[currentIndex]?.s_no,
               IconUrl: CampaignIconUrl,
             },
-          ].map(({ label, value, IconUrl }) => {
+          ]?.map(({ label, value, IconUrl }) => {
             return (
               <Col span={24} md={12}>
                 <div className="">
@@ -301,7 +301,7 @@ const CallerDashboard = ({ records }: Props) => {
   };
 
   const getItems: () => CollapseProps["items"] = () => {
-    const CollapseItems = call_script.map(({ uuid, title, body }) => {
+    const CollapseItems = call_script?.map(({ uuid, title, body }) => {
       return {
         key: `${uuid}`,
         label: (
@@ -403,8 +403,8 @@ const CallerDashboard = ({ records }: Props) => {
               <div
                 onClick={() =>
                   viewHandler({
-                    a: records[currentIndex]?.a1,
-                    q: records[currentIndex]?.q1,
+                    a: records?.[currentIndex]?.a1,
+                    q: records?.[currentIndex]?.q1,
                   })
                 }
                 className="w-100% bg-[#BAE4F1] rounded-xl h-[3rem] cursor-pointer"
@@ -414,8 +414,8 @@ const CallerDashboard = ({ records }: Props) => {
               <div
                 onClick={() =>
                   viewHandler({
-                    a: records[currentIndex]?.a2,
-                    q: records[currentIndex]?.q2,
+                    a: records?.[currentIndex]?.a2,
+                    q: records?.[currentIndex]?.q2,
                   })
                 }
                 className="w-100% bg-[#BAE4F1] rounded-xl h-[3rem] cursor-pointer"
@@ -425,8 +425,8 @@ const CallerDashboard = ({ records }: Props) => {
               <div
                 onClick={() =>
                   viewHandler({
-                    a: records[currentIndex]?.a3,
-                    q: records[currentIndex]?.q3,
+                    a: records?.[currentIndex]?.a3,
+                    q: records?.[currentIndex]?.q3,
                   })
                 }
                 className="w-100% bg-[#BAE4F1] rounded-xl h-[3rem] cursor-pointer"
@@ -436,8 +436,8 @@ const CallerDashboard = ({ records }: Props) => {
               <div
                 onClick={() =>
                   viewHandler({
-                    a: records[currentIndex]?.a4,
-                    q: records[currentIndex]?.q4,
+                    a: records?.[currentIndex]?.a4,
+                    q: records?.[currentIndex]?.q4,
                   })
                 }
                 className="w-100% bg-[#BAE4F1] rounded-xl h-[3rem] cursor-pointer"
@@ -447,8 +447,8 @@ const CallerDashboard = ({ records }: Props) => {
               <div
                 onClick={() =>
                   viewHandler({
-                    a: records[currentIndex]?.a5,
-                    q: records[currentIndex]?.q5,
+                    a: records?.[currentIndex]?.a5,
+                    q: records?.[currentIndex]?.q5,
                   })
                 }
                 className="w-100% bg-[#BAE4F1] rounded-xl h-[3rem] cursor-pointer"
@@ -458,8 +458,8 @@ const CallerDashboard = ({ records }: Props) => {
               <div
                 onClick={() =>
                   viewHandler({
-                    a: records[currentIndex]?.a6,
-                    q: records[currentIndex]?.q6,
+                    a: records?.[currentIndex]?.a6,
+                    q: records?.[currentIndex]?.q6,
                   })
                 }
                 className="w-100% bg-[#BAE4F1] rounded-xl h-[3rem] cursor-pointer"
@@ -563,7 +563,7 @@ const CallerDashboard = ({ records }: Props) => {
 
         {RenderInfoTable()}
 
-        <ConnectCCP phoneNum={records[currentIndex]?.phone} />
+        <ConnectCCP phoneNum={records?.[currentIndex]?.phone} />
       </div>
       {RenderCallScript()}
       {RenderCallHistory()}
