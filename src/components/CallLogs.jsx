@@ -4,6 +4,7 @@ import apiResources from "../APIResources";
 import { useEffect, useState } from "react";
 import { Button, Modal, Table } from "antd";
 import { thirdSectionText } from "@/config/CallerDahsboardPageText";
+import AudioPlayer from "./AudioPlayer";
 
 export const getServerSideProps = async () => {
   // Load initial table
@@ -94,6 +95,9 @@ export default function CallLogs({
       const newCallLogs = await apiResources.get(
         `/get-call-logs?page=${current}&limit=${perPage}`
       );
+      const signedURLResponse = await apiResources.get(`/get-signed-url`);
+      setSignedURL(signedURLResponse.data.signedUrl);
+
       setCurrentEntries(newCallLogs.data.retrievedRows);
       setRefresh(false);
     };
@@ -146,11 +150,7 @@ export default function CallLogs({
       title: <div className="text-center">Call Recording</div>,
       dataIndex: "call_recording",
       key: "call_recording",
-      render: (text) => (
-        <a href={text} target="_blank" rel="noopener noreferrer">
-          {text || "N/A"}
-        </a>
-      ),
+      render: (text) => <AudioPlayer key={text} signedUrl={text} />,
       width: "30%",
     },
     {
@@ -202,7 +202,9 @@ export default function CallLogs({
         )}
       </Modal>
       <div className="w-100%] flex flex-col gap-8 items-center mt-[3%]">
-        <div className="text-2xl md:text-3xl font-semibold">{thirdSectionText.title}</div>
+        <div className="text-2xl md:text-3xl font-semibold">
+          {thirdSectionText.title}
+        </div>
         <div className="flex gap-4 md:gap-10">
           <Button
             type="primary"
@@ -227,7 +229,7 @@ export default function CallLogs({
             columns={columns}
             bordered
             pagination={true}
-            style={{ backgroundColor: "inherit",tableLayout: 'fixed' }}
+            style={{ backgroundColor: "inherit", tableLayout: "fixed" }}
           />
         </div>
       </div>
