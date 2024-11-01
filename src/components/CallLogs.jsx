@@ -6,20 +6,11 @@ import { Button, Modal, Table } from "antd";
 import { thirdSectionText } from "@/config/CallerDahsboardPageText";
 import AudioPlayer from "./AudioPlayer";
 
-export const getServerSideProps = async () => {
-  // Load initial table
-  const callLogs = await apiResources.get(`/get-call-logs?page=1&limit=50`);
-
-  console.log(callLogs.data.retrievedRows);
-  return {
-    props: { datatableUsers: callLogs.data.retrievedRows },
-  };
-};
-
 export default function CallLogs({
   datatableUsers = [],
   parentTran = "",
   modShow = true,
+  buyer_identifier = null,
 }) {
   const [showPortal, setShowPortal] = useState(false);
   const [perPage, setPerPage] = useState(50);
@@ -91,18 +82,31 @@ export default function CallLogs({
   };
 
   useEffect(() => {
-    const call = async () => {
-      const newCallLogs = await apiResources.get(
-        `/get-call-logs?page=${current}&limit=${perPage}`
-      );
-      const signedURLResponse = await apiResources.get(`/get-signed-url`);
-      setSignedURL(signedURLResponse.data.signedUrl);
-
-      setCurrentEntries(newCallLogs.data.retrievedRows);
-      setRefresh(false);
+    const fetchCallLogs = async () => {
+      if (buyer_identifier) {
+        const newCallLogs = await apiResources.get(
+          `/get-call-logs?page=${current}&limit=${perPage}&buyer_id=${buyer_identifier}`
+        );
+        setCurrentEntries(newCallLogs.data.retrievedRows);
+      }
     };
-    call();
-  }, [current, perPage, refresh]);
+
+    fetchCallLogs();
+  }, [current, perPage, refresh, buyer_identifier]);
+
+  // useEffect(() => {
+  //   const call = async () => {
+  //     const newCallLogs = await apiResources.get(
+  //       `/get-call-logs?page=${current}&limit=${perPage}&buyer_id=1`
+  //     );
+  //     const signedURLResponse = await apiResources.get(`/get-signed-url`);
+  //     setSignedURL(signedURLResponse.data.signedUrl);
+
+  //     setCurrentEntries(newCallLogs.data.retrievedRows);
+  //     setRefresh(false);
+  //   };
+  //   call();
+  // }, [current, perPage, refresh]);
 
   const data = [
     {

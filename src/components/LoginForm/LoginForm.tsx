@@ -23,7 +23,7 @@ const LoginForm = () => {
         router.push("/caller-dashboard");
       }
     } catch (error) {
-      console.log(error);
+      console.error(error);
       alert("Invalid Login");
     }
   };

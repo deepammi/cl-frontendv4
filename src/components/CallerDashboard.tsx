@@ -1,5 +1,5 @@
 "use client";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import "react-responsive-modal/styles.css";
 import axios from "axios";
 import AiChat from "./AiChat";
@@ -43,6 +43,7 @@ import {
   seventhSectionText,
   sixthSectionText,
 } from "@/config/CallerDahsboardPageText";
+import apiResources from "@/APIResources";
 
 type Props = {
   records: any[];
@@ -376,7 +377,7 @@ const CallerDashboard = ({ records }: Props) => {
   const RenderCallHistory = () => {
     return (
       <>
-        <CallLogs />
+        <CallLogs buyer_identifier={records?.[currentIndex]?.buyer_identifier} />
       </>
     );
   };

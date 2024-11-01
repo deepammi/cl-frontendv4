@@ -4,6 +4,7 @@ import "../../app/globals.css";
 import Footer from "@/components/Footer/index";
 import Navbar from "@/components/Navbar";
 import { Layout } from "antd";
+import apiResources from "@/APIResources";
 
 // const getRecords = async () => {
 //   try {
@@ -34,12 +35,8 @@ import { Layout } from "antd";
 const Page = async () => {
   const getRecords = async () => {
     try {
-      const response = await fetch(
-        `${process.env.NEXT_PUBLIC_API_BASEURL}/records`,
-        { cache: "no-store" }
-      );
-      let result = await response.json();
-      return result;
+      let result = await apiResources.get(`/buyer_list`);
+      return result.data;
     } catch (error) {
       console.log(error);
     }
