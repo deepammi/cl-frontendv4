@@ -4,7 +4,7 @@ const Footer = () => {
       <div className="max-w-screen-xl mx-auto py-5 px-20 clear-both ">
         <div className="flex flex-wrap lg:flex-wrap gap-20">
           <div className="w-full lg:w-3/12">
-            <p className="text-[30px] mb-5">Turigma.ai</p>
+            <p className="text-[30px] mb-5">TBI Inc</p>
             <p className="text-[#797979] mb-5">
               A leading Silicon Valley pioneer in AI automation of enterprise
               PreSales
@@ -45,7 +45,7 @@ const Footer = () => {
                     </clipPath>
                   </defs>
                 </svg>
-                <p>info@turigma.ai</p>
+                <p>info@tbicorp.com</p>
               </div>
 
               <div className="flex gap-2">
