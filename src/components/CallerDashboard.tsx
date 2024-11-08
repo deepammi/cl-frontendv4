@@ -91,11 +91,14 @@ const CallerDashboard = ({ records }: Props) => {
         authorization: `Bearer ${localStorage.getItem("accessToken")}`,
       },
     };
+    
+    const endpoint = `${process.env.NEXT_PUBLIC_API_BASEURL}/assessments`;
     const response = await axios.post(
-      "https://app-endcl.azurewebsites.net/assessments",
+      endpoint,
       payload,
       config
     );
+
     if (response.status === 200) {
       initialState();
       alert("Assessment has been submitted, Thank You");

@@ -13,7 +13,7 @@ const LoginForm = () => {
     try {
       event.preventDefault();
       const payload = { email, password };
-      const endpoint = "https://app-endcl.azurewebsites.net/login";
+      const endpoint = `${process.env.NEXT_PUBLIC_API_BASEURL}/login`;
       const response = await axios.post(endpoint, payload);
       if (response.status === 200) {
         await createSession(response.data);

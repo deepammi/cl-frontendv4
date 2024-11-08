@@ -24,8 +24,9 @@ const FeedbackBox = (props: Props) => {
       like,
     };
 
+    const endpoint = `${process.env.NEXT_PUBLIC_API_BASEURL}/feedback`;
     axios
-      .post("https://app-endcl.azurewebsites.net/feedback", payload)
+      .post(endpoint, payload)
       .then(() => {
         setLike(null);
         setComment("");
@@ -34,6 +35,8 @@ const FeedbackBox = (props: Props) => {
       .catch((error) => {
         alert(error);
       });
+
+    
   };
 
   return (
