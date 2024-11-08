@@ -34,6 +34,8 @@ import apiResources from "@/APIResources";
 
 const Page = async () => {
   const getRecords = async () => {
+    console.log("getRecords");
+
     try {
       console.log("apiResources", apiResources);
       console.log("process.env.NODE_ENV", process.env.NODE_ENV);
@@ -45,6 +47,7 @@ const Page = async () => {
   };
 
   const records = await getRecords();
+  console.log("Page");
 
   return (
     <Layout>
