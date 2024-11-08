@@ -5,7 +5,7 @@ import Footer from "@/components/Footer/index";
 import Navbar from "@/components/Navbar";
 import { Layout } from "antd";
 import apiResources from "@/APIResources";
-import { GetServerSideProps } from "next";
+import { useEffect, useState } from "react";
 
 // const getRecords = async () => {
 //   try {
@@ -33,34 +33,36 @@ import { GetServerSideProps } from "next";
 //   };
 // };
 
-// const Page = async () => {
-//   const getRecords = async () => {
-//     console.log("getRecords");
+const useRecords = () => {
+  const [records, setRecords] = useState<any>(null);
+  const [loading, setLoading] = useState<boolean>(true);
+  const [error, setError] = useState<any>(null);
 
-//     try {
-//       console.log("apiResources", apiResources);
-//       console.log("process.env.NODE_ENV", process.env.NODE_ENV);
-//       let result = await apiResources.get(`/buyer_list`);
-//       return result.data;
-//     } catch (error) {
-//       console.log(error);
-//     }
-//   };
+  useEffect(() => {
+    const getRecords = async () => {
+      try {
+        console.log("getRecords called");
+        const result = await apiResources.get("/buyer_list");
+        console.log("API response data:", result.data);
+        setRecords(result.data);
+      } catch (err) {
+        console.log("Error in getRecords:", err);
+        setError(err);
+      } finally {
+        setLoading(false);
+      }
+    };
 
-//   const records = await getRecords();
-//   console.log("Page");
+    getRecords();
+  }, []); // Empty dependency array means this effect runs only once when the component mounts
 
-//   return (
-//     <Layout>
-//       <Navbar />
-//       <CallerDashboard records={records} />
-//       <Footer />
-//     </Layout>
-//   );
-// };
+  return { records, loading, error };
+};
 
-const Page = ({ records }: { records: any[] }) => {
-  console.log("Page"); // This should show in the browser console now
+const Page = () => {
+  const { records, loading, error } = useRecords();
+
+  console.log("Page. records:", records);
 
   return (
     <Layout>
@@ -69,23 +71,6 @@ const Page = ({ records }: { records: any[] }) => {
       <Footer />
     </Layout>
   );
-};
-
-export const getServerSideProps: GetServerSideProps = async () => {
-  console.log("getServerSideProps"); // This should show in the server-side logs
-  const getRecords = async () => {
-    console.log("getRecords");
-
-    try {
-      let result = await apiResources.get(`/buyer_list`);
-      return result.data;
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
-  const records = await getRecords();
-  return { props: { records } };
 };
 
 export default Page;
