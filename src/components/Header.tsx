@@ -26,6 +26,8 @@ const Header = ({
     try {
       const endpoint = "http://localhost:3000";
       const response = await axios.post(endpoint);
+      // Remove accessToken from localStorage
+      localStorage.removeItem("accessToken");
       if (response.status === 200) {
         router.push("/login");
       }
