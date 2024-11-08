@@ -19,8 +19,13 @@ export async function middleware(request: NextRequest, response: NextResponse) {
     },
   });
   console.log("responseAPI", responseAPI);
-  console.log("responseAPI.json()", await responseAPI.json());
-
+  try {
+    console.log("responseAPI.json()");
+    const responseJSON = await responseAPI.json();
+    console.log("responseJSON", responseJSON);
+  } catch (e) {
+    console.log("error JSON-ing", e);
+  }
   //Return to /login if token is not authorized
   if (responseAPI.status !== 200) {
     console.log("responseAPI.status", responseAPI.status);
