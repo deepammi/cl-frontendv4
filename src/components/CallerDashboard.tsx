@@ -59,6 +59,8 @@ const CallerDashboard = ({ records }: Props) => {
   const [note, setNote] = useState("");
   const [openFAQModal, setOpenFAQModal] = useState<boolean>(false);
 
+  console.log("in callerDashboard. records:", records);
+
   const viewHandler = (payload: any) => {
     setOpenFAQModal(true);
     setSelectedFaq(payload);
@@ -91,13 +93,9 @@ const CallerDashboard = ({ records }: Props) => {
         authorization: `Bearer ${localStorage.getItem("accessToken")}`,
       },
     };
-    
+
     const endpoint = `${process.env.NEXT_PUBLIC_API_BASEURL}/assessments`;
-    const response = await axios.post(
-      endpoint,
-      payload,
-      config
-    );
+    const response = await axios.post(endpoint, payload, config);
 
     if (response.status === 200) {
       initialState();
@@ -380,7 +378,9 @@ const CallerDashboard = ({ records }: Props) => {
   const RenderCallHistory = () => {
     return (
       <>
-        <CallLogs buyer_identifier={records?.[currentIndex]?.buyer_identifier} />
+        <CallLogs
+          buyer_identifier={records?.[currentIndex]?.buyer_identifier}
+        />
       </>
     );
   };
