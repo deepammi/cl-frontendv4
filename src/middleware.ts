@@ -8,6 +8,7 @@ export async function middleware(request: NextRequest, response: NextResponse) {
 
   //Return to /login if don't have a session
   if (!session) {
+    console.log("in if !session");
     return NextResponse.redirect(new URL("/login", request.url));
   }
 
@@ -17,9 +18,11 @@ export async function middleware(request: NextRequest, response: NextResponse) {
       Cookie: `session=${session?.value}`,
     },
   });
+  console.log("responseAPI", responseAPI);
 
   //Return to /login if token is not authorized
   if (responseAPI.status !== 200) {
+    console.log("responseAPI.status", responseAPI.status);
     return NextResponse.redirect(new URL("/login", request.url));
   }
 
