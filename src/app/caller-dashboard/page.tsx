@@ -35,6 +35,7 @@ import apiResources from "@/APIResources";
 const Page = async () => {
   const getRecords = async () => {
     try {
+      console.log("apiResources", apiResources);
       let result = await apiResources.get(`/buyer_list`);
       return result.data;
     } catch (error) {
