@@ -25,7 +25,7 @@ export async function POST(request: NextRequest, response: NextResponse) {
       httpOnly: true,
       secure: true,
     });
-    console.log("returning 200 response");
+    console.log("returning 200 response: ", response);
     return response;
   } catch (error) {
     console.error("Token validation failed:", error);
