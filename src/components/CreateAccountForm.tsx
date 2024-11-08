@@ -22,7 +22,7 @@ const CreateAccountForm = () => {
       //   return;
       // }
       const payload = { email, password };
-      const endpoint = "https://app-endcl.azurewebsites.net/create-account";
+      const endpoint = `${process.env.NEXT_PUBLIC_API_BASEURL}/create-account`;
       const response = await axios.post(endpoint, payload);
       if (response.status === 200) {
         router.push("/login");
