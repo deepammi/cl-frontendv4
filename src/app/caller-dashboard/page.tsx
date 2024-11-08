@@ -1,3 +1,4 @@
+"use client";
 import CallerDashboard from "@/components/CallerDashboard";
 import Header from "@/components/Header";
 import "../../app/globals.css";
