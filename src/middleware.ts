@@ -15,7 +15,7 @@ export async function middleware(request: NextRequest) {
   try {
     // Call the authentication API to validate session
     const responseAPI = await fetch(`${request.nextUrl.origin}/api/login`, {
-      method: "GET",
+      method: "POST",
       headers: {
         Cookie: `session=${session.value}`,
       },
