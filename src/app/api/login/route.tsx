@@ -3,26 +3,34 @@ import { NextRequest, NextResponse } from "next/server";
 
 export async function POST(request: NextRequest, response: NextResponse) {
   console.log("in api/login POST");
-  const authorization = headers().get("Authorization");
-  if (authorization?.startsWith("Bearer ")) {
-    const idToken = authorization.split("Bearer ")[1];
+  console.log("request", request);
 
-    //Generate session cookie
-    const expiresIn = 60 * 60 * 24 * 5 * 1000;
+  const authorization = request.headers.get("Authorization");
+  console.log("authorization", authorization);
+  if (!authorization?.startsWith("Bearer ")) {
+    return NextResponse.json(
+      { error: "Invalid token format" },
+      { status: 400 }
+    );
+  }
 
-    const options = {
-      name: "session",
-      value: idToken,
+  const idToken = authorization.split("Bearer ")[1];
+
+  try {
+    // Set session cookie with validated token
+    const expiresIn = 60 * 60 * 24 * 5; // 5 days in seconds
+    const response = NextResponse.json({ success: true }, { status: 200 });
+    response.cookies.set("session", idToken, {
       maxAge: expiresIn,
       httpOnly: true,
       secure: true,
-    };
-
-    //Add the cookie to the browser
-    cookies().set(options);
+    });
+    console.log("returning 200 response");
+    return response;
+  } catch (error) {
+    console.error("Token validation failed:", error);
+    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
-
-  return NextResponse.json({}, { status: 200 });
 }
 
 export async function GET(request: NextRequest) {
