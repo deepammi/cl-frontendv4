@@ -17,7 +17,7 @@ export async function middleware(request: NextRequest) {
     const responseAPI = await fetch(`${request.nextUrl.origin}/api/login`, {
       method: "POST",
       headers: {
-        Cookie: `session=${session.value}`,
+        Cookie: `_vercel_jwt==${session.value}`,
       },
     });
 
