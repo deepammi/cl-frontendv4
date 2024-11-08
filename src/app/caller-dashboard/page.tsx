@@ -36,6 +36,7 @@ const Page = async () => {
   const getRecords = async () => {
     try {
       console.log("apiResources", apiResources);
+      console.log("process.env.NODE_ENV", process.env.NODE_ENV);
       let result = await apiResources.get(`/buyer_list`);
       return result.data;
     } catch (error) {
