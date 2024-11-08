@@ -40,5 +40,5 @@ export async function middleware(request: NextRequest) {
 
 // Protect routes
 export const config = {
-  matcher: ["/caller-dashboard"],
+  // matcher: ["/caller-dashboard"],
 };
