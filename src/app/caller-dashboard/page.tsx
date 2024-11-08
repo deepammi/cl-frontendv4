@@ -5,6 +5,7 @@ import Footer from "@/components/Footer/index";
 import Navbar from "@/components/Navbar";
 import { Layout } from "antd";
 import apiResources from "@/APIResources";
+import { GetServerSideProps } from "next";
 
 // const getRecords = async () => {
 //   try {
@@ -32,22 +33,34 @@ import apiResources from "@/APIResources";
 //   };
 // };
 
-const Page = async () => {
-  const getRecords = async () => {
-    console.log("getRecords");
+// const Page = async () => {
+//   const getRecords = async () => {
+//     console.log("getRecords");
 
-    try {
-      console.log("apiResources", apiResources);
-      console.log("process.env.NODE_ENV", process.env.NODE_ENV);
-      let result = await apiResources.get(`/buyer_list`);
-      return result.data;
-    } catch (error) {
-      console.log(error);
-    }
-  };
+//     try {
+//       console.log("apiResources", apiResources);
+//       console.log("process.env.NODE_ENV", process.env.NODE_ENV);
+//       let result = await apiResources.get(`/buyer_list`);
+//       return result.data;
+//     } catch (error) {
+//       console.log(error);
+//     }
+//   };
 
-  const records = await getRecords();
-  console.log("Page");
+//   const records = await getRecords();
+//   console.log("Page");
+
+//   return (
+//     <Layout>
+//       <Navbar />
+//       <CallerDashboard records={records} />
+//       <Footer />
+//     </Layout>
+//   );
+// };
+
+const Page = ({ records }: { records: any[] }) => {
+  console.log("Page"); // This should show in the browser console now
 
   return (
     <Layout>
@@ -56,6 +69,23 @@ const Page = async () => {
       <Footer />
     </Layout>
   );
+};
+
+export const getServerSideProps: GetServerSideProps = async () => {
+  console.log("getServerSideProps"); // This should show in the server-side logs
+  const getRecords = async () => {
+    console.log("getRecords");
+
+    try {
+      let result = await apiResources.get(`/buyer_list`);
+      return result.data;
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const records = await getRecords();
+  return { props: { records } };
 };
 
 export default Page;
