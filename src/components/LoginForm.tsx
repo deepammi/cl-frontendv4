@@ -15,8 +15,11 @@ const LoginForm = () => {
       const payload = { email, password };
       const endpoint = `${process.env.NEXT_PUBLIC_API_BASEURL}/login`;
       const response = await axios.post(endpoint, payload);
+      console.log("response from /login", response);
       if (response.status === 200) {
         await createSession(response.data);
+        console.log("before router push");
+
         router.push("/caller-dashboard");
       }
     } catch (error) {
@@ -27,6 +30,7 @@ const LoginForm = () => {
 
   const createSession = async (accessToken: any) => {
     try {
+      console.log("in createSession try");
       await axios
         .post("/api/login", null, {
           headers: {
@@ -36,7 +40,9 @@ const LoginForm = () => {
         .then(() => {
           localStorage.setItem("accessToken", accessToken);
         });
-    } catch (error) {}
+    } catch (error) {
+      console.log("in error", error);
+    }
   };
 
   return (
