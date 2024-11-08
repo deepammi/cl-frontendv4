@@ -23,12 +23,15 @@ const LoginForm = () => {
         console.log("before createSession");
         await createSession(response.data);
         console.log("before router push");
+        console.log("router", router);
         router.push("/caller-dashboard");
+        console.log("after router push");
       }
     } catch (error) {
       console.error(error);
       alert("Invalid Login");
     }
+    console.log("after try/catch in handler");
   };
 
   const createSession = async (accessToken: any) => {
