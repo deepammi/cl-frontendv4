@@ -20,13 +20,18 @@ export async function middleware(request: NextRequest, response: NextResponse) {
   });
   console.log("responseAPI", responseAPI);
   try {
-    console.log("responseAPI.json()");
-    const responseJSON = await responseAPI.json();
-    console.log("responseJSON", responseJSON);
+    if (responseAPI.headers.get("content-type")?.includes("application/json")) {
+      const responseJSON = await responseAPI.json();
+      console.log("responseJSON", responseJSON);
+    } else {
+      console.log(
+        "Received non-JSON response, possibly HTML:",
+        await responseAPI.text()
+      );
+    }
   } catch (e) {
-    console.log("error JSON-ing", e);
-  }
-  //Return to /login if token is not authorized
+    console.log("Error parsing JSON:", e);
+  } //Return to /login if token is not authorized
   if (responseAPI.status !== 200) {
     console.log("responseAPI.status", responseAPI.status);
     return NextResponse.redirect(new URL("/login", request.url));
