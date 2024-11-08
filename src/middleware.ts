@@ -1,47 +1,42 @@
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
 
-export async function middleware(request: NextRequest, response: NextResponse) {
+export async function middleware(request: NextRequest) {
   const session = request.cookies.get("session");
-  console.log("request", request);
-  console.log("session...", session);
 
-  //Return to /login if don't have a session
+  console.log("Checking session in middleware:", session);
+
+  // Redirect to /login if no session exists
   if (!session) {
-    console.log("in if !session");
+    console.log("No session found, redirecting to /login");
     return NextResponse.redirect(new URL("/login", request.url));
   }
 
-  //Call the authentication endpoint
-  const responseAPI = await fetch(`${request.nextUrl.origin}/api/login`, {
-    headers: {
-      Cookie: `session=${session?.value}`,
-    },
-  });
-  console.log("responseAPI", responseAPI);
   try {
-    if (responseAPI.headers.get("content-type")?.includes("application/json")) {
-      const responseJSON = await responseAPI.json();
-      console.log("responseJSON", responseJSON);
+    // Call the authentication API to validate session
+    const responseAPI = await fetch(`${request.nextUrl.origin}/api/login`, {
+      headers: {
+        Cookie: `session=${session.value}`,
+      },
+    });
+
+    if (responseAPI.status === 200) {
+      console.log("Session validated, allowing access");
+      return NextResponse.next();
     } else {
       console.log(
-        "Received non-JSON response, possibly HTML:",
-        await responseAPI.text()
+        "Session invalid, received non-200 status:",
+        responseAPI.status
       );
+      return NextResponse.redirect(new URL("/login", request.url));
     }
-  } catch (e) {
-    console.log("Error parsing JSON:", e);
-  } //Return to /login if token is not authorized
-  if (responseAPI.status !== 200) {
-    console.log("responseAPI.status", responseAPI.status);
+  } catch (error) {
+    console.log("Error in middleware API call:", error);
     return NextResponse.redirect(new URL("/login", request.url));
   }
-  console.log("responseAPI", responseAPI);
-
-  return NextResponse.next();
 }
 
-//Add your protected routes
+// Protect routes
 export const config = {
   matcher: ["/caller-dashboard"],
 };
