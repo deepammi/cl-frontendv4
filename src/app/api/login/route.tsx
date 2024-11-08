@@ -2,6 +2,7 @@ import { cookies, headers } from "next/headers";
 import { NextRequest, NextResponse } from "next/server";
 
 export async function POST(request: NextRequest, response: NextResponse) {
+  console.log("in api/login POST");
   const authorization = headers().get("Authorization");
   if (authorization?.startsWith("Bearer ")) {
     const idToken = authorization.split("Bearer ")[1];
@@ -25,6 +26,7 @@ export async function POST(request: NextRequest, response: NextResponse) {
 }
 
 export async function GET(request: NextRequest) {
+  console.log("in api/login GET");
   const session = cookies().get("session")?.value || "";
 
   //Validate if the cookie exist in the request

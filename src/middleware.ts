@@ -25,6 +25,7 @@ export async function middleware(request: NextRequest, response: NextResponse) {
     console.log("responseAPI.status", responseAPI.status);
     return NextResponse.redirect(new URL("/login", request.url));
   }
+  console.log("responseAPI", responseAPI);
 
   return NextResponse.next();
 }
