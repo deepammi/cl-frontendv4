@@ -11,31 +11,7 @@ export async function middleware(request: NextRequest) {
     console.log("No session found, redirecting to /login");
     return NextResponse.redirect(new URL("/login", request.url));
   }
-
-  try {
-    // Call the authentication API to validate session
-    const responseAPI = await fetch(`${request.nextUrl.origin}/api/login`, {
-      method: "POST",
-      headers: {
-        Cookie: `_vercel_jwt==${session.value}`,
-      },
-    });
-
-    if (responseAPI.status === 200) {
-      console.log("Session validated, allowing access");
-      return NextResponse.next();
-    } else {
-      console.log(
-        "Session invalid, received non-200 status:",
-        responseAPI.status,
-        responseAPI
-      );
-      return NextResponse.redirect(new URL("/login", request.url));
-    }
-  } catch (error) {
-    console.log("Error in middleware API call:", error);
-    return NextResponse.redirect(new URL("/login", request.url));
-  }
+  return NextResponse.next();
 }
 
 // Protect routes
