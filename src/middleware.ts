@@ -14,7 +14,7 @@ export async function middleware(request: NextRequest) {
 
   try {
     // Call the authentication API to validate session
-    const responseAPI = await fetch(`${request.nextUrl.origin}/api/login`, {
+    const responseAPI = await fetch(`/api/login`, {
       method: "POST",
       headers: {
         Cookie: `session=${session.value}`,
@@ -27,7 +27,8 @@ export async function middleware(request: NextRequest) {
     } else {
       console.log(
         "Session invalid, received non-200 status:",
-        responseAPI.status
+        responseAPI.status,
+        responseAPI
       );
       return NextResponse.redirect(new URL("/login", request.url));
     }
